@@ -131,7 +131,7 @@
         <param name="busy_visible">true</param>
         <param name="usewidgetlabel">false</param>
         <param name="infowidget">false</param>
-        <param name="height">780</param>
+        <param name="height">735</param> <!-- scape 780 -->
         <definition>
             <include content="Widget_Label">
                 <param name="groupid">$PARAM[groupid]</param>

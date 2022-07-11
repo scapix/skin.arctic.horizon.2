@@ -67,7 +67,7 @@
     <constant name="view_poster_itemlayout_h">360</constant>
 
     <constant name="infowidget_slide_top">-90</constant>
-    <constant name="infowidget_slide_bottom_plot">120</constant>
+    <constant name="infowidget_slide_bottom_plot">140</constant> <!-- scape 120 -->
     <constant name="infowidget_slide_bottom_full">40</constant>
     <constant name="infowidget_slide_pos">50</constant>
     <constant name="infowidget_slide_infotop">-60</constant>

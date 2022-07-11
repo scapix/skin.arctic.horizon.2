@@ -207,7 +207,7 @@
                         </control>
                     </control>
                     <control type="group" id="$PYTHON[int(mainmenuid) * 1000 + 600]">
-                        <height>600</height>
+                        <height>465</height> <!-- scape 600 -->
                     </control>
                     <skinshortcuts insert="widgets">items</skinshortcuts>
                     <include content="Widget_Submenu" condition="$SKINSHORTCUTS[isSubmenuBumper]">
