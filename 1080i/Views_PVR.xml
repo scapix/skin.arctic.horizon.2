@@ -263,11 +263,15 @@
                 <param name="id" value="53" />
                 <param name="progresstexture" value="pvr/progressline-full.png" />
                 <param name="viewtype_label" value="$LOCALIZE[535]" />
-                <param name="channelheight" value="120" />
-                <param name="channelwidth" value="600" />
+                <!-- scape  -->
+                <param name="channelheight" value="90.01" />
+                <param name="channelwidth" value="300" />
+                <!-- <param name="channelheight" value="120" /> -->
+                <!-- <param name="channelwidth" value="600" /> -->
                 <param name="include_channels" value="Layout_PVRRecordings" />
                 <param name="detailed" value="true" />
-                <param name="bottomline_left" value="600" />
+                <param name="bottomline_left" value="300" />
+                <!-- <param name="bottomline_left" value="600" /> -->
                 <top>40</top>
             </include>
         </control>
