@@ -148,7 +148,7 @@
                         <visible>$SKINSHORTCUTS[isFullscreenWidget]</visible>
                         <visible>!Integer.IsEqual(Container(301).NumItems,0)</visible>
                         <animation effect="fade" start="0" end="100" time="400" delay="400" reversible="false" condition="Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301)">Conditional</animation>
-                        <animation effect="fade" start="100" end="0" time="200" reversible="false" condition="!Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301)">Conditional</animation>
+                        <animation effect="fade" start="100" end="0" time="0" reversible="false" condition="!Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301)">Conditional</animation>
 
                         <include content="Info_Panel">
                             <param name="plotwidth" value="info_plot_w" />
@@ -156,7 +156,7 @@
                             <param name="controltype">label</param>
                             <param name="line_id" value="$PYTHON[int(mainmenuid) * 1000 + 598]" />
                             <param name="container" value="Container(301)." />
-                            <param name="ratings" value="[Container.Content(movies) | Container.Content(episodes) | Container.Content(seasons) | Container.Content(sets) | Container.Content(tvshows) | String.IsEqual(Container(301).ListItem.DBType,movie) | String.IsEqual(Container(301).ListItem.DBType,tvshow) | String.IsEqual(Container(301).ListItem.DBType,set) | String.IsEqual(Container(301).ListItem.DBType,season) | String.IsEqual(Container(301).ListItem.DBType,episode) | Container(301).ListItem.IsCollection]" />
+                            <param name="ratings" value="[String.IsEqual(Container(301).ListItem.DBType,movie) | String.IsEqual(Container(301).ListItem.DBType,tvshow) | String.IsEqual(Container(301).ListItem.DBType,set) | String.IsEqual(Container(301).ListItem.DBType,season) | String.IsEqual(Container(301).ListItem.DBType,episode) | Container(301).ListItem.IsCollection]" />
                             <height>280</height>
                             <width>info_panel_w</width>
                             <top>widget_fs_info_top</top>
@@ -436,6 +436,8 @@
             <property name="isInfo" tag="property" attribute="name|widgetAspect" value="Text">False</property>
             <property name="isInfo" tag="property" attribute="name|widgetInfo">True</property>
             <property name="isInfo">False</property>
+            <property name="isInfoFull" tag="property" attribute="name|widgetInfo" value="Full">True</property>
+            <property name="isInfoFull">False</property>
             <property name="widgetInfo" tag="property" attribute="name|list" value="Submenu"></property>
             <property name="widgetInfo" tag="property" attribute="name|widgetAspect" value="Button"></property>
             <property name="widgetInfo" tag="property" attribute="name|widgetAspect" value="Apps"></property>
@@ -452,6 +454,7 @@
                     <param name="include" value="$SKINSHORTCUTS[widgetStyle]" />
                     <param name="visible" value="[[$SKINSHORTCUTS[isVisible]] + String.IsEqual(Container(300).ListItem.Property(submenuVisibility),$SKINSHORTCUTS[submenuVisibility])]" />
                     <param name="infowidget" value="$SKINSHORTCUTS[isInfo]" />
+                    <param name="infowidget_full" value="$SKINSHORTCUTS[isInfoFull]" />
                     <param name="busy_visible" value="Integer.IsEqual(Container($PYTHON[int(mainmenuid) * 1000 + 600 + int(id)]).NumItems,0)" />
                     <param name="detailed">$SKINSHORTCUTS[widgetDetailed]</param>
                     <include content="Object_Include" condition="!$SKINSHORTCUTS[isSubmenu]">
@@ -585,9 +588,11 @@
             <property name="id" tag="property" attribute="name|id" value="$NUMBER[98]">98</property>
             <property name="id" tag="property" attribute="name|id" value="$NUMBER[99]">99</property>
 
+            <property name="widgetLabel" tag="label" value="$LOCALIZE[12600]">$LOCALIZE[12600]$INFO[Weather.Temperature, • ,]</property>
             <property name="widgetLabel" tag="label" value="$LOCALIZE[8]">$LOCALIZE[8]$INFO[Weather.Temperature, • ,]</property>
             <property name="widgetLabel" tag="label" />
             <property name="widgetAction" tag="property" attribute="name|path" />
+            <property name="widgetIcon" tag="label" value="$LOCALIZE[12600]">$INFO[Weather.FanartCode,resource://resource.images.weathericons.white/,.png]</property>
             <property name="widgetIcon" tag="label" value="$LOCALIZE[8]">$INFO[Weather.FanartCode,resource://resource.images.weathericons.white/,.png]</property>
             <property name="widgetIcon" tag="thumb" />
             <property name="widgetIcon" tag="icon" />
@@ -964,6 +969,7 @@
             <property name="isInfo" tag="property" attribute="name|widgetAspect" value="Text">False</property>
             <property name="isInfo" tag="property" attribute="name|widgetInfo">True</property>
             <property name="isInfo">False</property>
+            <property name="isInfoFull">False</property>
             <property name="widgetInfo" tag="property" attribute="name|list" value="Submenu"></property>
             <property name="widgetInfo" tag="property" attribute="name|widgetAspect" value="Button"></property>
             <property name="widgetInfo" tag="property" attribute="name|widgetAspect" value="Apps"></property>
@@ -984,6 +990,7 @@
                     <param name="altvisible" value="[Control.HasFocus(340) | [System.IdleTime(1) + !System.IdleTime(2) + Control.HasFocus(9099) + !String.IsEqual(Window.Property(PreviousSearchTerm),Control.GetLabel(9099).index(1))]]" />
                     <param name="include" value="$SKINSHORTCUTS[widgetStyle]" />
                     <param name="infowidget" value="$SKINSHORTCUTS[isInfo]" />
+                    <param name="infowidget_full" value="$SKINSHORTCUTS[isInfoFull]" />
                     <param name="detailed">$SKINSHORTCUTS[widgetDetailed]</param>
                     <include content="Object_Include" condition="!$SKINSHORTCUTS[isAutoLimit]">
                         <content sortby="$SKINSHORTCUTS[widgetSortby]" sortorder="$SKINSHORTCUTS[widgetSortorder]" target="$SKINSHORTCUTS[widgetTarget]" limit="$SKINSHORTCUTS[widgetLimit]">$INFO[Control.GetLabel(9099).index(1),$SKINSHORTCUTS[widgetPath],$SKINSHORTCUTS[widgetPath2]]</content>
