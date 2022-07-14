@@ -269,6 +269,7 @@
         <param name="sourceimage" default="Art(fanart)" />
         <definition>
             <onload>ClearProperty(TMDbHelper.WidgetContainer,Home)</onload>
+            <onload>Skin.SetString(TMDbHelper.Blur.Radius,15)</onload>
             <onload>SetProperty(TMDbHelper.Blur.SourceImage,$PARAM[sourceimage],Home)</onload>
             <onload>SetProperty(TMDbHelper.Blur.Fallback,special://skin/fanart.jpg,Home)</onload>
         </definition>
