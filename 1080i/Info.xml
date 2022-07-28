@@ -171,20 +171,26 @@
                     <!-- Player Info -->
                     <include content="Info_Line_Label" condition="$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
-                        <param name="label" value="$LOCALIZE[20359] $INFO[VideoPlayer.Season,S,E]$INFO[VideoPlayer.Episode]" />
-                        <param name="visible" value="!String.IsEmpty(VideoPlayer.Episode)" />
+                        <param name="label" value="$LOCALIZE[20359] $INFO[VideoPlayer.Season,,x]$INFO[VideoPlayer.Episode]" />
+                        <param name="visible" value="!String.IsEmpty(VideoPlayer.Episode) + Integer.IsGreater(VideoPlayer.Episode,9)" />
+                        <param name="textcolor" value="$PARAM[colordiffuse]_90" />
+                    </include>
+                    <include content="Info_Line_Label" condition="$PARAM[player]">
+                        <param name="controltype" value="$PARAM[controltype]" />
+                        <param name="label" value="$LOCALIZE[20359] $INFO[VideoPlayer.Season,,x]$INFO[VideoPlayer.Episode,0,]" />
+                        <param name="visible" value="!String.IsEmpty(VideoPlayer.Episode) + !Integer.IsGreater(VideoPlayer.Episode,9)" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
                     <include content="Info_Line_Label" condition="$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
                         <param name="label" value="$INFO[VideoPlayer.Year]" />
-                        <param name="visible" value="!String.IsEmpty(VideoPlayer.Year) + [!String.IsEqual(VideoPlayer.DBType,episode) | String.IsEmpty(VideoPlayer.Premiered)]" />
+                        <param name="visible" value="!String.IsEmpty(VideoPlayer.Year) + [String.IsEmpty(VideoPlayer.Episode) | String.IsEmpty(VideoPlayer.Premiered)]" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
                     <include content="Info_Line_Label" condition="$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
                         <param name="label" value="$INFO[VideoPlayer.Premiered]" />
-                        <param name="visible" value="!String.IsEmpty(VideoPlayer.Premiered) + String.IsEqual(VideoPlayer.DBType,episode)" />
+                        <param name="visible" value="!String.IsEmpty(VideoPlayer.Premiered) + !String.IsEmpty(VideoPlayer.Episode)" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
                     <include content="Info_Line_Label" condition="$PARAM[player]">
@@ -208,17 +214,16 @@
 
 
                     <!-- Media Info -->
-                    <!-- <include content="Info_Line_Label" condition="!$PARAM[player]">
-                        <param name="controltype" value="$PARAM[controltype]" />
-                        <param name="label" value="$INFO[$PARAM[container]ListItem.StartDate]" />
-                        <param name="visible" value="Window.IsVisible(MyPVRGuide.xml) + !String.IsEmpty($PARAM[container]ListItem.StartDate)" />
-                        <param name="textcolor" value="$PARAM[colordiffuse]_90" />
-                    </include> -->
-
                     <include content="Info_Line_Label" condition="!$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
-                        <param name="label" value="$LOCALIZE[20359] $INFO[$PARAM[container]ListItem.Season,S,E]$INFO[$PARAM[container]ListItem.Episode]" />
-                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Episode) + [String.IsEqual($PARAM[container]ListItem.DBType,episode) | $EXP[Exp_IsPVRItem]]" />
+                        <param name="label" value="$LOCALIZE[20359] $INFO[$PARAM[container]ListItem.Season,,x]$INFO[$PARAM[container]ListItem.Episode]" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Episode) + Integer.IsGreater($PARAM[container]ListItem.Episode,9) + [String.IsEqual($PARAM[container]ListItem.DBType,episode) | $EXP[Exp_IsPVRItem]]" />
+                        <param name="textcolor" value="$PARAM[colordiffuse]_90" />
+                    </include>
+                    <include content="Info_Line_Label" condition="!$PARAM[player]">
+                        <param name="controltype" value="$PARAM[controltype]" />
+                        <param name="label" value="$LOCALIZE[20359] $INFO[$PARAM[container]ListItem.Season,,x]$INFO[$PARAM[container]ListItem.Episode,0,]" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Episode) + !Integer.IsGreater($PARAM[container]ListItem.Episode,9) + [String.IsEqual($PARAM[container]ListItem.DBType,episode) | $EXP[Exp_IsPVRItem]]" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
                     <include content="Info_Line_Label" condition="!$PARAM[player]">
@@ -258,41 +263,67 @@
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
 
+                    <!-- Duration Info -->
                     <include content="Info_Line_Label" condition="!$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
                         <param name="label" value="$INFO[$PARAM[container]ListItem.Duration(h),, $LOCALIZE[31074] ]$INFO[$PARAM[container]ListItem.Duration(m),, $LOCALIZE[31073]]" />
-                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Duration) + !String.IsEqual(ListItem.DBType,artist) + !String.IsEqual(ListItem.DBType,album) + !String.IsEqual(ListItem.DBType,song) + !Window.IsVisible(MyPVRGuide.xml)" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Duration) + !String.IsEqual($PARAM[container]ListItem.Duration(h), 0) + !String.IsEqual($PARAM[container]ListItem.Duration(m), 0) + [String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,video) | String.IsEqual($PARAM[container]ListItem.DBType,episode)]" />
+                        <param name="textcolor" value="$PARAM[colordiffuse]_90" />
+                    </include>
+                    <include content="Info_Line_Label" condition="!$PARAM[player]">
+                        <param name="controltype" value="$PARAM[controltype]" />
+                        <param name="label" value="$INFO[$PARAM[container]ListItem.Duration(m),, $LOCALIZE[31073]]" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Duration) + String.IsEqual($PARAM[container]ListItem.Duration(h), 0) + [String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,video) | String.IsEqual($PARAM[container]ListItem.DBType,episode)]" />
+                        <param name="textcolor" value="$PARAM[colordiffuse]_90" />
+                    </include>
+                    <include content="Info_Line_Label" condition="!$PARAM[player]">
+                        <param name="controltype" value="$PARAM[controltype]" />
+                        <param name="label" value="$INFO[$PARAM[container]ListItem.Duration(h),, $LOCALIZE[31074]]" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Duration) + String.IsEqual($PARAM[container]ListItem.Duration(m), 0) + [String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,video) | String.IsEqual($PARAM[container]ListItem.DBType,episode)]" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
                     <include content="Info_Line_Label" condition="!$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
                         <param name="label" value="$INFO[Window(Home).Property(TMDbHelper.ListItem.Duration_H),, $LOCALIZE[31074] ]$INFO[Window(Home).Property(TMDbHelper.ListItem.Duration_M),, $LOCALIZE[31073]]" />
-                        <param name="visible" value="String.IsEmpty($PARAM[container]ListItem.Duration) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Duration)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration),0) + !String.IsEqual(ListItem.DBType,artist) + !String.IsEqual(ListItem.DBType,album) + !String.IsEqual(ListItem.DBType,song) + !Window.IsVisible(MyPVRGuide.xml)" />
+                        <param name="visible" value="String.IsEmpty($PARAM[container]ListItem.Duration) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Duration)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration),0) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration_H), 0) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration_M), 0) + [String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,video) | String.IsEqual($PARAM[container]ListItem.DBType,episode)]" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
-                    <include content="Info_Line_Label" condition="!$PARAM[player] + Skin.HasSetting(InfoLine.EndTime)">
+                    <include content="Info_Line_Label" condition="!$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
-                        <param name="label" value="$INFO[$PARAM[container]ListItem.EndTime,$LOCALIZE[31072] ,]" />
-                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.EndTime) + !String.IsEqual($PARAM[container]ListItem.EndTime,System.Time) + !String.IsEqual(ListItem.DBType,artist) + !String.IsEqual(ListItem.DBType,album) + !String.IsEqual(ListItem.DBType,song)" />
+                        <param name="label" value="$INFO[Window(Home).Property(TMDbHelper.ListItem.Duration_M),, $LOCALIZE[31073]]" />
+                        <param name="visible" value="String.IsEmpty($PARAM[container]ListItem.Duration) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Duration)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration),0) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration_H), 0) + [String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,video) | String.IsEqual($PARAM[container]ListItem.DBType,episode)]" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
+                    <include content="Info_Line_Label" condition="!$PARAM[player]">
+                        <param name="controltype" value="$PARAM[controltype]" />
+                        <param name="label" value="$INFO[Window(Home).Property(TMDbHelper.ListItem.Duration_H),, $LOCALIZE[31074]]" />
+                        <param name="visible" value="String.IsEmpty($PARAM[container]ListItem.Duration) + !String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Duration)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration),0) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Duration_M), 0) + [String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,video) | String.IsEqual($PARAM[container]ListItem.DBType,episode)]" />
+                        <param name="textcolor" value="$PARAM[colordiffuse]_90" />
+                    </include>
+                    <include content="Info_Line_Label" condition="!$PARAM[player] + Skin.HasSetting(Infoline.EnableEndTime)">
+                        <param name="controltype" value="$PARAM[controltype]" />
+                        <param name="label" value="$INFO[$PARAM[container]ListItem.EndTime,$LOCALIZE[31267] ,]" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.EndTime) + !String.IsEqual($PARAM[container]ListItem.EndTime,System.Time) + [String.IsEqual($PARAM[container]ListItem.DBType,movie) | String.IsEqual($PARAM[container]ListItem.DBType,video) | String.IsEqual($PARAM[container]ListItem.DBType,episode)]" />
+                        <param name="textcolor" value="$PARAM[colordiffuse]_90" />
+                    </include>
+
 
                     <include content="Info_Line_Label" condition="!$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
                         <param name="label" value="$INFO[$PARAM[container]ListItem.Property(Artist_Gender)]" />
-                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Property(Artist_Gender)) + !String.IsEqual(ListItem.DBType,album) + !String.IsEqual(ListItem.DBType,song)" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Property(Artist_Gender)) + !String.IsEqual($PARAM[container]ListItem.DBType,album) + !String.IsEqual($PARAM[container]ListItem.DBType,song)" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
                     <include content="Info_Line_Label" condition="!$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
                         <param name="label" value="$INFO[$PARAM[container]ListItem.Property(Artist_YearsActive)]" />
-                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Property(Artist_YearsActive)) + !String.IsEqual(ListItem.DBType,album) + !String.IsEqual(ListItem.DBType,song)" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Property(Artist_YearsActive)) + !String.IsEqual($PARAM[container]ListItem.DBType,album) + !String.IsEqual($PARAM[container]ListItem.DBType,song)" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
                     <include content="Info_Line_Label" condition="!$PARAM[player]">
                         <param name="controltype" value="$PARAM[controltype]" />
                         <param name="label" value="$INFO[$PARAM[container]ListItem.Property(Album_Label)]" />
-                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Property(Album_Label)) + !String.IsEqual(ListItem.DBType,artist) + !String.IsEqual(ListItem.DBType,song)" />
+                        <param name="visible" value="!String.IsEmpty($PARAM[container]ListItem.Property(Album_Label)) + !String.IsEqual($PARAM[container]ListItem.DBType,artist) + !String.IsEqual($PARAM[container]ListItem.DBType,song)" />
                         <param name="textcolor" value="$PARAM[colordiffuse]_90" />
                     </include>
 
@@ -527,9 +558,9 @@
             <include content="Object_Control" condition="$PARAM[include_condition]">
                 <param name="control" value="label" />
                 <textcolor>$PARAM[colordiffuse]_70</textcolor>
-                <top>2</top>
+                <centertop>50%</centertop>
                 <width>$PARAM[label_width]</width>
-                <height>28</height>
+                <height>20</height>
                 <align>left</align>
                 <font>font_mini</font>
                 <include content="Object_Include" condition="$PARAM[is_varlabel]">
@@ -545,9 +576,9 @@
             <include content="Object_Control" condition="$PARAM[include_condition]">
                 <param name="control" value="label" />
                 <textcolor>$PARAM[colordiffuse]_70</textcolor>
-                <top>2</top>
+                <centertop>50%</centertop>
                 <width>$PARAM[label_width]</width>
-                <height>28</height>
+                <height>20</height>
                 <align>left</align>
                 <font>font_mini</font>
                 <label>$PARAM[label_prefix]$PARAM[label_fallback]$PARAM[label_suffix]</label>
@@ -797,6 +828,13 @@
         <param name="directory" default="$VAR[Texture_ColorMode_Dir]" />
         <definition>
 
+            <control type="label" id="99995">
+                <label>$VAR[Image_RipSource]</label>
+                <left>-1920</left>
+                <width>100</width>
+                <visible>false</visible>
+            </control>
+
             <!-- Fallback -->
             <control type="grouplist">
                 <hitrect x="0" y="0" w="0" h="0" />
@@ -957,7 +995,7 @@
                     <height>56</height>
                     <aspectratio>keep</aspectratio>
                     <texture>$VAR[Image_RipSource]</texture>
-                    <param name="visible" value="[String.Contains(ListItem.FileNameAndPath,2160p) | String.Contains(ListItem.FileNameAndPath,UHD) | String.Contains(ListItem.FileNameAndPath,UltraHD) | String.Contains(ListItem.FileNameAndPath,Ultra-HD) | String.Contains(ListItem.FileNameAndPath,4K) | String.Contains(ListItem.FileNameAndPath,blu-ray) | String.Contains(ListItem.FileNameAndPath,bluray) | String.Contains(ListItem.FileNameAndPath,bdrip) | String.Contains(ListItem.FileNameAndPath,bd25) | String.Contains(ListItem.FileNameAndPath,bd50) | String.Contains(ListItem.FileNameAndPath,hddvd) | String.Contains(ListItem.FileNameAndPath,hd-dvd) | String.Contains(ListItem.FileNameAndPath,dvd) | String.Contains(ListItem.FileNameAndPath,hdtv) | String.Contains(ListItem.FileNameAndPath,pdtv) | String.Contains(ListItem.FileNameAndPath,dsr) | String.Contains(ListItem.FileNameAndPath,sdtv) | String.Contains(ListItem.FileNameAndPath,web-dl) | String.Contains(ListItem.FileNameAndPath,webdl) | String.Contains(ListItem.FileNameAndPath,WEBRip)] + !String.EndsWith(ListItem.FileNameAndPath,.strm)" />
+                    <param name="visible" value="!String.IsEqual(Control.GetLabel(99995),common/null.png)" />
                 </include>
 
                 <!-- Audio / Subtitle Languages -->
@@ -1012,6 +1050,8 @@
                     <param name="property" value="ListItem.Property(SubtitleLanguage.5)" />
                     <param name="icon" value="flags/subtitles.png" />
                 </include>
+
+
             </control>
 
             <!-- Info Providers -->
@@ -1175,7 +1215,7 @@
             <height>40</height>
             <control type="image">
                 <aspectratio>keep</aspectratio>
-                <texture>$INFO[$PARAM[property],resource://resource.images.languageflags.colour/,.png]</texture>
+                <texture>$INFO[$PARAM[property],flags/color/language/,.png]</texture>
             </control>
             <control type="button">
                 <centerbottom>10%</centerbottom>
@@ -1216,7 +1256,7 @@
     <include name="Info_Panel">
         <param name="container" default="" />
         <param name="plotbox" default="true" />
-        <param name="plotheight" default="80" />
+        <param name="plotheight" default="info_plot_h" />
         <param name="plotwidth" default="100%" />
         <param name="colordiffuse" default="main_fg" />
         <param name="ratings" default="[Container.Content(movies) | Container.Content(episodes) | Container.Content(seasons) | Container.Content(sets) | Container.Content(tvshows) | String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode) | ListItem.IsCollection]" />
