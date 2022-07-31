@@ -1025,7 +1025,7 @@
             <property name="isVisible" tag="visible" />
             <property name="isVisible">True</property>
             <controls>
-
+                <top>-135</top> <!-- move search list up = align with other widgets -->
                 <include content="$SKINSHORTCUTS[widgetInclude]" condition="$SKINSHORTCUTS[isVisible]">
                     <param name="spacerid" value="$PYTHON[5200 + int(id)]" />
                     <param name="groupid" value="$PYTHON[5100 + int(id)]" />
