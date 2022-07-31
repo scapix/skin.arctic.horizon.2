@@ -5,6 +5,8 @@
         <nested />
     </include>
 
+    <include name="Object_Width"><width>$PARAM[width]</width></include>
+
     <include name="Object_Control">
         <param name="padding" default="false" />
         <definition>
@@ -142,9 +144,52 @@
         </definition>
     </include>
 
+    <include name="Object_NavButton">
+        <param name="flipy">false</param>
+        <definition>
+            <include content="Object_Control" condition="!Skin.HasSetting(EnableMouseMode)">
+                <param name="control">image</param>
+                <texture flipy="$PARAM[flipy]" colordiffuse="main_fg_60">common/arrow-up-240.png</texture>
+                <bordersize>15</bordersize>
+                <width>60</width>
+                <height>60</height>
+                <centerleft>50%</centerleft>
+                <include content="Object_Include" condition="$PARAM[flipy]">
+                    <centerbottom>40</centerbottom>
+                </include>
+                <include content="Object_Include" condition="!$PARAM[flipy]">
+                    <centertop>40</centertop>
+                </include>
+            </include>
+            <include content="Object_MenuButton" condition="Skin.HasSetting(EnableMouseMode)">
+                <param name="profileimage" value="false" />
+                <param name="icon">common/arrow-up-240.png</param>
+                <param name="bordersize">15</param>
+                <param name="flipy">$PARAM[flipy]</param>
+                <centerleft>50%</centerleft>
+                <centertop>50%</centertop>
+                <height>60</height>
+            </include>
+            <control type="button">
+                <texturefocus />
+                <texturenofocus />
+                <onclick>SetFocus($PARAM[id])</onclick>
+                <include content="Object_Include" condition="$PARAM[flipy]">
+                    <onclick>Action(Down)</onclick>
+                </include>
+                <include content="Object_Include" condition="!$PARAM[flipy]">
+                    <onclick>Action(Up)</onclick>
+                </include>
+            </control>
+        </definition>
+    </include>
+
     <include name="Object_WallFade">
         <param name="altvisible_top" default="false" />
         <param name="altvisible_bottom" default="false" />
+        <param name="visible_top">true</param>
+        <param name="visible_bottom">true</param>
+        <param name="direction_buttons">false</param>
         <definition>
             <control type="image">
                 <height>view_top</height>
@@ -156,6 +201,7 @@
                 <animation type="Hidden" reversible="false">
                     <effect type="fade" end="0" start="100" time="400"/>
                 </animation>
+                <visible>$PARAM[visible_top]</visible>
                 <visible>Container($PARAM[id]).HasPrevious | $PARAM[altvisible_top]</visible>
                 <nested />
             </control>
@@ -170,9 +216,39 @@
                 <animation type="Hidden" reversible="false">
                     <effect type="fade" end="0" start="100" time="400"/>
                 </animation>
+                <visible>$PARAM[visible_bottom]</visible>
                 <visible>Container($PARAM[id]).HasNext | $PARAM[altvisible_bottom]</visible>
                 <nested />
             </control>
+
+            <include content="Object_Control" condition="$PARAM[direction_buttons]">
+                <param name="control">group</param>
+                <centertop>70</centertop>
+                <height>140</height>
+                <include>Animation_FadeIn_Delay</include>
+                <include>Animation_FadeOut</include>
+                <include content="Object_NavButton">
+                    <param name="id">$PARAM[id]</param>
+                    <param name="flipy">false</param>
+                </include>
+                <visible>!Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301)</visible>
+                <visible>Container($PARAM[id]).HasPrevious | $PARAM[altvisible_top]</visible>
+                <nested />
+            </include>
+
+            <include content="Object_Control" condition="$PARAM[direction_buttons]">
+                <param name="control">group</param>
+                <centerbottom>70</centerbottom>
+                <height>140</height>
+                <include>Animation_FadeIn_Delay</include>
+                <include>Animation_FadeOut</include>
+                <include content="Object_NavButton">
+                    <param name="id">$PARAM[id]</param>
+                    <param name="flipy">true</param>
+                </include>
+                <visible>Container($PARAM[id]).HasNext | $PARAM[altvisible_bottom]</visible>
+                <nested />
+            </include>
         </definition>
     </include>
 
@@ -537,6 +613,7 @@
         <param name="overlay" default="true" />
         <param name="bordersize" default="0" />
         <param name="profileimage" default="false" />
+        <param name="flipy" default="false" />
         <definition>
             <control type="group">
                 <width>60</width>
@@ -558,7 +635,7 @@
                     <param name="control" value="image" />
                     <aspectratio>keep</aspectratio>
                     <bordersize>$PARAM[bordersize]</bordersize>
-                    <texture colordiffuse="dialog_fg_70">$PARAM[icon]</texture>
+                    <texture colordiffuse="dialog_fg_70" flipy="$PARAM[flipy]">$PARAM[icon]</texture>
                     <visible>![Container.Scrolling + $EXP[Exp_AlphabetTypes_Only]]</visible>
                     <animation effect="fade" start="0" end="100" time="200" delay="1200" reversible="true">Visible</animation>
                     <animation effect="fade" start="100" end="0" time="200" delay="400" reversible="true">Hidden</animation>
@@ -888,6 +965,7 @@
         <param name="icon" default="special://skin/extras/icons/kodi.png" />
         <param name="header" default="$LOCALIZE[33063]" />
         <param name="id" default="9000" />
+        <param name="groupid" default="89000" />
         <param name="onback" default="50" />
         <param name="width" default="dialog_menu_width" />
         <param name="usegrouplist" default="true" />
@@ -898,9 +976,18 @@
         <param name="useanimation" default="true" />
         <param name="nib_pos" default="70" />
         <param name="wraparound" default="true" />
+        <param name="usemousefocus" default="false" />
         <param name="action_include" default="Action_OptionsMenu_Default" />
         <definition>
             <control type="group">
+                <include content="Object_Control" condition="$PARAM[usemousefocus]">
+                    <param name="control">button</param>
+                    <param name="id">$PARAM[groupid]</param>
+                    <texturenofocus />
+                    <texturefocus />
+                    <font />
+                    <top>-200</top>
+                </include>
                 <include content="Dialog_Background" condition="!$PARAM[iscontextmenu]">
                     <bottom>row_height_x800</bottom>
                     <visible>Integer.IsEqual(Container($PARAM[id]).NumItems,1)</visible>
@@ -985,7 +1072,7 @@
                     <include>Animation_SlideIn_Dialog</include>
                     <include condition="!$PARAM[isbuttonmenu]">Animation_FadeOut</include>
                     <visible>$PARAM[visible]</visible>
-                    <visible>[ControlGroup($PARAM[id]).HasFocus() + $PARAM[usegrouplist]] | [Control.HasFocus($PARAM[id]) + !$PARAM[usegrouplist]] | $PARAM[isfocused]</visible>
+                    <visible>[ControlGroup($PARAM[id]).HasFocus() + $PARAM[usegrouplist]] | [Control.HasFocus($PARAM[id]) + !$PARAM[usegrouplist]] | $PARAM[isfocused] | [Control.HasFocus($PARAM[groupid]) + [$PARAM[usemousefocus]]]</visible>
                 </include>
                 <width>$PARAM[width]</width>
                 <height>860</height>
@@ -999,6 +1086,8 @@
         <param name="icon" default="special://skin/extras/icons/kodi.png" />
         <param name="header" default="$LOCALIZE[33063]" />
         <param name="id" default="9000" />
+        <param name="groupid" default="89000" />
+        <param name="usemousefocus" default="false" />
         <param name="onback" default="50" />
         <param name="width" default="dialog_menu_width" />
         <param name="usegrouplist" default="true" />
@@ -1011,7 +1100,7 @@
         <definition>
             <include content="Object_Control">
                 <param name="control" value="group" />
-                <visible>[ControlGroup($PARAM[id]).HasFocus() + $PARAM[usegrouplist]] | [Control.HasFocus($PARAM[id]) + !$PARAM[usegrouplist]] | $PARAM[isfocused]</visible>
+                <visible>[ControlGroup($PARAM[id]).HasFocus() + $PARAM[usegrouplist]] | [Control.HasFocus($PARAM[id]) + !$PARAM[usegrouplist]] | $PARAM[isfocused] | [Control.HasFocus($PARAM[groupid]) + [$PARAM[usemousefocus]]]</visible>
                 <include>Animation_FadeIn</include>
                 <include condition="!$PARAM[isbuttonmenu]">Animation_FadeOut</include>
                 <include content="Object_Overlay" condition="$PARAM[has_background_overlay]">
@@ -1033,6 +1122,7 @@
                 <param name="icon" value="$PARAM[icon]" />
                 <param name="header" value="$PARAM[header]" />
                 <param name="id" value="$PARAM[id]" />
+                <param name="groupid" value="$PARAM[groupid]" />
                 <param name="onback" value="$PARAM[onback]" />
                 <param name="width" value="$PARAM[width]" />
                 <param name="usegrouplist" value="$PARAM[usegrouplist]" />
@@ -1044,6 +1134,7 @@
                 <param name="nib_pos" value="$PARAM[nib_pos]" />
                 <param name="useanimation" value="$PARAM[useanimation]" />
                 <param name="wraparound" value="$PARAM[wraparound]" />
+                <param name="usemousefocus" value="$PARAM[usemousefocus]" />
                 <param name="action_include" value="$PARAM[action_include]" />
                 <nested />
             </include>

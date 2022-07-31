@@ -38,9 +38,9 @@
 
         <!-- All Widgets Group -->
         <control type="group" id="320">
-            <animation type="Conditional" condition="Control.IsVisible(330)" reversible="false">
-                <effect type="slide" end="0,-20" time="60" tween="sine" />
-                <effect type="slide" end="0,20" time="180" tween="sine" delay="80" />
+            <animation type="Conditional" condition="Control.IsVisible(330) | !String.IsEmpty(Window(Home).Property(330_FocusBounce))" reversible="false">
+                <effect type="slide" end="0,-30" time="60" tween="sine" />
+                <effect type="slide" end="0,30" time="180" tween="sine" delay="80" />
             </animation>
             <animation type="WindowOpen" reversible="false" condition="Window.Previous(1114)">
                 <effect type="slide" start="320" end="0" time="400" delay="0" tween="cubic" easing="out" />
@@ -51,9 +51,7 @@
             <include>skinshortcuts-template-widgets</include>
         </control>
 
-
-
-        <!-- Header -->
+        <!-- Right Header -->
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <control type="group">
@@ -62,13 +60,26 @@
             </control>
         </control>
 
+        <!-- Left Header -->
+        <include content="Object_Control">
+            <param name="control">group</param>
+            <include content="Furniture_Top_Left">
+                <param name="label">$VAR[Label_HomeHeader]</param>
+            </include>
+            <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <visible>!$EXP[Exp_HomeBarVisible]</visible>
+            <animation effect="fade" start="0" end="100" time="400" delay="200" reversible="false">Visible</animation>
+        </include>
+
+        <!-- Codec Info -->
         <include content="Object_Control" condition="Skin.HasSetting(Widgets.CodecInfo)">
             <param name="control">group</param>
-            <include>Furniture_Bottom</include>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <visible>!$EXP[Exp_HomeBarVisible]</visible>
             <visible>String.IsEqual(Window(Home).Property(Slide.WidgetInfoStyle),Full)</visible>
             <visible>!String.IsEmpty(Window(Home).Property(Slide.WidgetContainer))</visible>
-            <animation effect="fade" start="0" end="100" time="400" delay="400" reversible="false">Visible</animation>
+            <include>Furniture_Bottom</include>
+            <animation effect="fade" start="0" end="100" time="400" delay="200" reversible="false">Visible</animation>
         </include>
 
         <!-- Submenu -->
@@ -130,6 +141,7 @@
             <param name="colordiffuse" value="main_fg_12" />
             <left>80</left>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <visible>$EXP[Exp_HomeBarVisible]</visible>
             <animation effect="fade" start="100" end="0" condition="Window.Next(1114)">Conditional</animation>
             <include content="Object_Hidden_Button">
                 <param name="id" value="399" />
@@ -262,6 +274,19 @@
             <onclick condition="String.IsEmpty(Window(Home).Property(OptionsMenuFocused))">SetProperty(OptionsMenuFocused,303,Home)</onclick>
             <onclick condition="String.IsEmpty(Window(Home).Property(OptionsMenuFocused))">SetFocus(303)</onclick>
         </control>
+
+        <include content="Object_Control" condition="!Skin.HasSetting(Home.DisableSearchMenu)">
+            <param name="control">button</param>
+            <onclick>ClearProperty(AnimationDirection)</onclick>
+            <onclick>ActivateWindow(1114)</onclick>
+            <texturefocus />
+            <texturenofocus />
+            <font />
+            <left>80</left>
+            <centertop>100</centertop>
+            <height>60</height>
+            <width>120</width>
+        </include>
 
 
     </controls>

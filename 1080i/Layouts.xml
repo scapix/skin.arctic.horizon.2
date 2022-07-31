@@ -38,8 +38,8 @@
                 <param name="control" value="label" />
                 <include condition="$PARAM[selected]">Color_SelectedText</include>
                 <left>60</left>
-                <include content="Object_Include" condition="$PARAM[detailed]">
-                    <width>400</width>
+                <include content="Object_Width" condition="$PARAM[detailed]">
+                    <param name="width">400</param>
                 </include>
                 <textoffsetx>40</textoffsetx>
                 <textcolor>dialog_fg_70</textcolor>
@@ -1098,7 +1098,7 @@
                         <visible>!$EXP[Exp_HasArtLandscape]</visible>
                     </include>
                 </include>
-                <include content="Object_Control">
+                <include content="Object_Control" condition="!Skin.HasSetting(Views.DisableBigLandscapeText)">
                     <param name="control">group</param>
                     <visible>String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,video) | $EXP[Exp_IsPVRItem]</visible>
                     <include content="Object_Control" condition="$PARAM[bg_layer]">

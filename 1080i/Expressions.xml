@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <expression name="Exp_ShowBigPosterInfo">[Control.HasFocus(58) + System.IdleTime(3) + !Skin.HasSetting(Views.DisableBigPosterRowAutoInfo)]</expression>
+
+    <expression name="Exp_HomeBarVisible">[Control.HasFocus(300) | Control.HasFocus(399) | Control.HasFocus(303) | Control.HasFocus(302) | ControlGroup(9000).HasFocus() | Integer.IsEqual(Window(Home).Property(TMDBHelper.WidgetContainer),301)]</expression>
+
     <expression name="Exp_HasTempoShift">[!String.IsEmpty(Player.PlaySpeed) + !String.IsEqual(Player.PlaySpeed,1.00) + !String.IsEqual(Player.PlaySpeed,0.00)]</expression>
 
     <expression name="Exp_HasPlayerStatus">Player.Caching | Player.Paused | Player.Rewinding | Player.Forwarding | Player.Seeking | [Player.DisplayAfterSeek + !String.IsEmpty(Player.SeekOffset)] | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | $EXP[Exp_HasTempoShift]</expression>
@@ -11,11 +15,13 @@
     <expression name="Exp_IsStudio">[String.IsEqual(ListItem.DBType,studio) | String.IsEqual(ListItem.Property(dbtype),studio) | Container.Content(studios)]</expression>
     <expression name="Exp_IsCountry">[String.IsEqual(ListItem.DBType,country) | String.IsEqual(ListItem.Property(dbtype),country) | Container.Content(countries)]</expression>
 
+    <expression name="Exp_HasFurnitureNowPlaying">[[[Player.HasVideo + ![$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(HasTrailer))]] | Player.HasAudio] + ![VideoPlayer.IsFullscreen | Window.IsVisible(MusicVisualisation.xml)]]</expression>
+
     <expression name="Exp_TMDbHelper_IsUpdating">[!String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdating)) | !String.IsEmpty(Window(Home).Property(TMDBHelper.IsUpdatingRating))]</expression>
 
     <expression name="Exp_HasProfileImage">[Skin.HasSetting(Home.ShowProfileImage) + !String.IsEmpty(System.ProfileThumb) + [Window.IsVisible(Home) | $EXP[Exp_SettingsDialogs]] + !$EXP[Exp_InfoDialogs]]</expression>
 
-    <expression name="Exp_HasBackgroundVideo">[Skin.HasSetting(UseBackgroundVideo) + Player.HasVideo]</expression>
+    <expression name="Exp_HasBackgroundVideo">[Skin.HasSetting(UseBackgroundVideo) + Player.HasVideo + ![$EXP[Exp_InfoDialogs] + !String.IsEmpty(Window(Home).Property(HasTrailer))]]</expression>
 
     <expression name="Exp_HasPagesItems">[[Control.HasFocus(60) | Control.HasFocus(61)] + !$EXP[Exp_InfoDialogs]]</expression>
 

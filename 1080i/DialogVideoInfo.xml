@@ -38,7 +38,7 @@
                         </include>
                         <control type="group">
                             <top>360</top>
-                            <height>80</height>
+                            <height>70</height>
                             <include content="Object_Control" condition="!$EXP[Exp_IsPersonInfo]">
                                 <param name="control" value="grouplist" />
                                 <param name="id" value="5000" />
@@ -82,8 +82,25 @@
                         <visible>!Control.HasFocus(7001) | !Player.HasVideo</visible>
                         <include>Furniture_Bottom</include>
                     </control>
+
+                    <!-- Mouse Nav Button -->
+                    <include content="Object_Control">
+                        <param name="control">group</param>
+                        <bottom>0</bottom>
+                        <height>140</height>
+                        <include>Animation_FadeIn_Delay</include>
+                        <include>Animation_FadeOut</include>
+                        <visible>!Control.HasFocus(7001) | !Player.HasVideo</visible>
+                        <visible>!Control.HasFocus(61)</visible>
+                        <include content="Object_NavButton">
+                            <param name="flipy">true</param>
+                            <param name="id">5000</param>
+                        </include>
+                    </include>
                 </control>
             </include>
+
+
 
             <include>Furniture_Top_Left</include>
         </control>
@@ -97,9 +114,10 @@
             <param name="grouplist_items" value="Items_DialogVideoInfo_Options" />
             <param name="visible" value="!$EXP[Exp_OverlayDialogs]" />
             <param name="onback" value="5000" />
+            <param name="usemousefocus">true</param>
         </include>
 
-        <include>Dialog_VideoInfoTrailerButton</include>
+        <include>Dialog_VideoInfoTrailerFullscreen</include>
         <include>Dialog_VideoInfoRecommendationsButton</include>
 
         <control type="grouplist">
