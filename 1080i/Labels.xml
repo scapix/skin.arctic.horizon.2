@@ -4,6 +4,11 @@
         <value condition="!String.IsEmpty(Window(Home).Property(Slide.WidgetTitle))">$INFO[Window(Home).Property(Slide.WidgetTitle)]</value>
         <value>$INFO[Container(300).ListItem.Label]</value>
     </variable>
+    <variable name="Label_OSD_HeaderEpisodeChapter">
+        <value condition="VideoPlayer.Content(episodes)">$INFO[VideoPlayer.Title]</value>
+        <value condition="VideoPlayer.Content(movies) + !String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00)">$INFO[Player.Chapter,$LOCALIZE[21396] ,]$INFO[Player.ChapterCount, $LOCALIZE[1443] ,]</value>
+        <value condition="VideoPlayer.Content(livetv) + !String.IsEmpty(VideoPlayer.ChannelNumberLabel)">$INFO[VideoPlayer.ChannelNumberLabel,$LOCALIZE[19029] ,]</value>
+    </variable>
     <variable name="Label_VideoHWDecoder">
         <value condition="Player.Process(videohwdecoder)">HW</value>
         <value>SW</value>
@@ -208,7 +213,7 @@
 
     <variable name="Label_NextAired">
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Next_Aired))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Status), ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Next_Aired), ,]</value>
-        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Returning Series)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Status), ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Last_Aired), - $LOCALIZE[31063] ,]</value>
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.Status),Returning Series)">$INFO[Window(Home).Property(TMDbHelper.ListItem.Status), ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Last_Aired), ,]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Last_Aired))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Status), ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Last_Aired), ,]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.Premiered))">$INFO[Window(Home).Property(TMDbHelper.ListItem.Status), ,]$INFO[Window(Home).Property(TMDbHelper.ListItem.Premiered), ,]</value>
         <value>$INFO[Window(Home).Property(TMDbHelper.ListItem.Status), ,]</value>
@@ -236,6 +241,8 @@
         <value condition="!String.IsEmpty(Container.PluginCategory)">$INFO[Container.PluginCategory]</value>
         <value condition="!String.IsEmpty(Container.FolderName)">$INFO[Container.FolderName]</value>
         <value condition="Window.IsVisible(MyPVRGuide.xml)">$LOCALIZE[19069]</value>
+        <value condition="Window.IsVisible(10025)">$LOCALIZE[14236]</value>
+        <value condition="Window.IsVisible(10502)">$LOCALIZE[14237]</value>
         <value>$LOCALIZE[10000]</value>
     </variable>
 
