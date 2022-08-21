@@ -123,9 +123,9 @@
     <constant name="widget_label_t">-420</constant>
     <constant name="widget_label_h">-180</constant>
     <constant name="widget_items_t">200</constant>
-    <constant name="widget_items_h">880</constant> <!-- scape 735 -->
+    <constant name="widget_items_h">840</constant> <!-- scape 880 -->
     <constant name="widget_sbump_h">-280</constant>
-    <constant name="widget_tbump_h">600</constant> <!-- scape 465 -->
+    <constant name="widget_tbump_h">565</constant> <!-- scape 600 -->
     <constant name="widget_stack_h">780</constant>
     <constant name="widget_stack_t">-380</constant>
 
