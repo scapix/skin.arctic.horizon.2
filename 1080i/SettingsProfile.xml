@@ -9,7 +9,7 @@
                 <include content="Dialog_SettingsCategory_LeftGroup">
                     <param name="header_condition" value="false" />
                     <control type="grouplist" id="9000">
-                        <width>dialog_category_width</width>
+                        <width>settings_category_w</width>
                         <onleft>30000</onleft>
                         <onup>-</onup>
                         <onright>9001</onright>
@@ -24,7 +24,7 @@
                             <param name="control" value="radiobutton" />
                             <include>Texture_Highlight_Settings_ToggleButton</include>
                             <focusedcolor>$VAR[ColorSettingsToggleButtonText]</focusedcolor>
-                            <width>dialog_category_width</width>
+                            <width>settings_category_w</width>
                             <description>Default Category Button</description>
                             <label>$LOCALIZE[10029]</label>
                         </include>
@@ -62,9 +62,9 @@
                                 <onleft>9000</onleft>
                                 <onright>61</onright>
                                 <pagecontrol>61</pagecontrol>
-                                <itemlayout height="row_height_x200">
+                                <itemlayout height="grid_x16">
                                     <control type="group">
-                                        <left>dialog_pad</left>
+                                        <left>grid_x04</left>
                                         <control type="group">
                                             <left>-10</left>
                                             <include content="Object_ListItem_Iconic">
@@ -73,12 +73,12 @@
                                         </control>
                                     </control>
                                 </itemlayout>
-                                <focusedlayout height="row_height_x200">
+                                <focusedlayout height="grid_x16">
                                     <control type="image">
                                         <include>Texture_Highlight</include>
                                     </control>
                                     <control type="group">
-                                        <left>dialog_pad</left>
+                                        <left>grid_x04</left>
                                         <control type="group">
                                             <left>-10</left>
                                             <include content="Object_ListItem_Iconic">

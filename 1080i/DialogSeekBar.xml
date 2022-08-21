@@ -4,7 +4,7 @@
     <visible>!Player.HasGame</visible>
     <visible>!Window.IsActive(DialogPlayerProcessInfo.xml)</visible>
     <visible>Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)</visible>
-    <visible>Window.IsActive(videoosd) | Window.IsActive(musicosd) | Player.Caching | Player.ShowInfo | Player.Seeking | Player.DisplayAfterSeek | Player.Paused | Player.Forwarding | Player.Rewinding | Window.IsActive(DialogFullScreenInfo.xml) | !String.IsEmpty(Window(Home).Property(OSDInfo)) | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | Window.IsVisible(script-cu-lrclyrics-main.xml)</visible>
+    <visible>Window.IsActive(videoosd) | Window.IsActive(musicosd) | Player.Caching | Player.ShowInfo | Player.Seeking | Player.DisplayAfterSeek | [Player.Paused + [!System.IdleTime(3) | !Skin.HasSetting(OSD.AutoHideOnPause)]] | Player.Forwarding | Player.Rewinding | Window.IsActive(DialogFullScreenInfo.xml) | !String.IsEmpty(Window(Home).Property(OSDInfo)) | !String.IsEmpty(Player.SeekNumeric) | !String.IsEmpty(PVR.ChannelNumberInput) | Window.IsVisible(script-cu-lrclyrics-main.xml)</visible>
     <visible>!Window.IsVisible(DialogSlider.xml)</visible>
     <visible>!Window.IsVisible(DialogPVRChannelsOSD.xml)</visible>
     <visible>!Window.IsVisible(DialogPVRChannelGuide.xml)</visible>
@@ -21,15 +21,27 @@
         <!-- Video Seekbar -->
         <include content="Object_Control" condition="VideoPlayer.IsFullscreen">
             <param name="control" value="group" />
+
+            <!-- Progress Bar Group -->
             <control type="group">
                 <include>OSD_Progress_Bar</include>
                 <include>OSD_Progress_Labels</include>
                 <include>OSD_Progress_Details</include>
-                <include content="Object_Include" condition="Skin.HasSetting(OSD.DisableCodecs)">
-                    <animation effect="slide" start="0" end="0,80" time="300" tween="sine" easing="out" reversible="false" condition="!Window.IsVisible(videoosd)">Conditional</animation>
-                    <animation effect="slide" end="0" start="0,80" time="300" tween="sine" easing="out" reversible="false" condition="Window.IsVisible(videoosd)">Conditional</animation>
+                <include condition="Skin.HasSetting(OSD.DisableCodecs)">Animation_OSD_Seekbar_NoCodecs</include>
+            </control>
+
+            <!-- Top Left Label -->
+            <control type="group">
+                <visible>[VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.Title)] | [VideoPlayer.Content(movies) + !String.IsEmpty(Player.Chapter) + !String.IsEqual(Player.Chapter,00)] | [VideoPlayer.Content(livetv) + !String.IsEmpty(VideoPlayer.ChannelNumberLabel)]</visible>
+                <include content="Object_ShadowSpot">
+                    <include>Dimension_HeaderTitleShadow</include>
+                </include>
+                <include content="Furniture_Top_Left">
+                    <param name="label">$VAR[Label_OSD_HeaderEpisodeChapter]</param>
                 </include>
             </control>
+
+            <!-- Codecs -->
             <include content="Object_Control" condition="!Skin.HasSetting(OSD.DisableCodecs)">
                 <param name="control">group</param>
                 <height>60</height>

@@ -16,12 +16,12 @@
             <include content="Dialog_Group">
                 <control type="group">
                     <right>0</right>
-                    <width>dialog_button_width</width>
+                    <width>dialog_button_w</width>
                     <control type="grouplist" id="9000">
                         <onleft>61</onleft>
                         <itemgap>20</itemgap>
                         <control type="button" id="9001" description="Close">
-                            <height>row_height</height>
+                            <height>grid_x08</height>
                             <label>$LOCALIZE[15067]</label>
                             <onclick>Close</onclick>
                         </control>
@@ -29,11 +29,11 @@
                 </control>
 
                 <control type="group">
-                    <right>dialog_button_width</right>
+                    <right>dialog_button_w</right>
                     <control type="group">
-                        <right>dialog_pad</right>
+                        <right>grid_x04</right>
                         <control type="grouplist" id="8000">
-                            <left>-dialog_pad</left>
+                            <left>-grid_x04</left>
                             <pagecontrol>61</pagecontrol>
                             <onright>61</onright>
                             <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_Recommendations)">Items_Settings_Recommendations</include>
@@ -43,6 +43,7 @@
                             <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_Infoline)">Items_Settings_Infoline</include>
                             <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_CustomStartup)">Items_Settings_CustomStartup</include>
                             <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_Autoscroll)">Items_Settings_Autoscroll</include>
+                            <include condition="String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),Items_Settings_MPAACountries)">Items_Settings_MPAACountries</include>
                         </control>
                         <include content="Dialog_Scrollbar">
                             <onright>9000</onright>

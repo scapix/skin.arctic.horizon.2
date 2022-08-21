@@ -9,7 +9,6 @@
 
         <include content="Object_Hidden_Button">
             <param name="id" value="99997" />
-            <include>Defs_Hidden_Button</include>
             <onfocus>SetFocus(6100)</onfocus>
             <onfocus condition="Window.IsVisible(videoosd)">Action(Close)</onfocus>
         </include>
@@ -108,8 +107,8 @@
                 <control type="group">
                     <bottom>20</bottom>
                     <height>160</height>
-                    <left>dialog_pad</left>
-                    <right>dialog_pad</right>
+                    <left>grid_x04</left>
+                    <right>grid_x04</right>
                     <include content="OSD_TempoControl">
                         <param name="istempo">false</param>
                     </include>
@@ -209,8 +208,8 @@
                 <include>Animation_SlideIn_Dialog</include>
                 <left>40</left>
                 <width>1040</width>
-                <include content="Object_Include" condition="VideoPlayer.Content(livetv)">
-                    <height>740</height>
+                <include content="Object_Height" condition="VideoPlayer.Content(livetv)">
+                    <param name="height">740</param>
                 </include>
                 <height>540</height>
                 <include content="Object_MenuHeader" condition="VideoPlayer.Content(movies)">
@@ -230,9 +229,11 @@
                     <onleft>6400</onleft>
                     <onright>6400</onright>
                     <onback>6400</onback>
-                    <include content="Object_Include" condition="VideoPlayer.Content(livetv)">
-                        <focusposition>2</focusposition>
-                        <movement>2</movement>
+                    <include content="Object_FocusPosition" condition="VideoPlayer.Content(livetv)">
+                        <param name="focusposition">2</param>
+                    </include>
+                    <include content="Object_Movement" condition="VideoPlayer.Content(livetv)">
+                        <param name="movement">2</param>
                     </include>
                     <focusposition>1</focusposition>
                     <movement>1</movement>
@@ -252,7 +253,7 @@
                         <include content="Layout_PVRRecordings">
                             <param name="selected" value="false" />
                             <param name="item_h" value="120" />
-                            <param name="textoffsetx" value="dialog_pad" />
+                            <param name="textoffsetx" value="grid_x04" />
                             <param name="misc" value="20" />
                             <param name="textcolor" value="dialog_fg" />
                             <param name="detailed" value="true" />
@@ -264,7 +265,7 @@
                             <include content="Layout_PVRRecordings">
                                 <param name="selected" value="false" />
                                 <param name="item_h" value="120" />
-                                <param name="textoffsetx" value="dialog_pad" />
+                                <param name="textoffsetx" value="grid_x04" />
                                 <param name="misc" value="20" />
                                 <param name="textcolor" value="dialog_fg" />
                                 <param name="detailed" value="true" />
@@ -275,7 +276,7 @@
                             <include content="Layout_PVRRecordings">
                                 <param name="selected" value="true" />
                                 <param name="item_h" value="120" />
-                                <param name="textoffsetx" value="dialog_pad" />
+                                <param name="textoffsetx" value="grid_x04" />
                                 <param name="misc" value="20" />
                                 <param name="textcolor" value="dialog_fg" />
                                 <param name="detailed" value="true" />
@@ -455,16 +456,16 @@
                 <control type="group">
                     <bottom>20</bottom>
                     <height>160</height>
-                    <left>dialog_pad</left>
-                    <right>dialog_pad</right>
+                    <left>grid_x04</left>
+                    <right>grid_x04</right>
                     <control type="image">
                         <centertop>-20</centertop>
                         <height>1</height>
                         <texture colordiffuse="dialog_fg_12">common/white.png</texture>
                     </control>
                     <include content="Dialog_Menu_Button">
-                        <left>-dialog_pad</left>
-                        <right>-dialog_pad</right>
+                        <left>-grid_x04</left>
+                        <right>-grid_x04</right>
                         <param name="id" value="7800" />
                         <param name="groupid" value="7890" />
                         <param name="control" value="button" />

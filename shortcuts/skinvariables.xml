@@ -9,7 +9,7 @@
 
     <variable name="Defs_PercentPlayed" containers="50">
         <value condition="Window.IsVisible(AddonBrowser.xml) + String.EndsWith({listitemposition}.Label2,%)">$INFO[{listitemposition}.Label2]</value>
-        <value condition="!String.IsEmpty({listitemposition}.Property(WatchedProgress)) + !Integer.IsEqual({listitemposition}.Property(WatchedProgress),0)">$INFO[{listitemposition}.Property(WatchedProgress)]</value>
+        <value condition="!String.IsEmpty({listitemposition}.Property(WatchedProgress)) + !Integer.IsEqual({listitemposition}.Property(WatchedProgress),0) + [!Integer.IsEqual({listitemposition}.Property(WatchedProgress),100) | !Skin.HasSetting(Indicator.DisableWatched)]">$INFO[{listitemposition}.Property(WatchedProgress)]</value>
         <value condition="!String.IsEmpty({listitemposition}.PercentPlayed) + [!Integer.IsEqual({listitemposition}.PercentPlayed,0) | {listitemposition}.IsResumable]">$INFO[{listitemposition}.PercentPlayed]</value>
         <value condition="!Integer.IsEqual({listitemposition}.Progress,0) + $EXP[Exp_WidgetWindow]">$VAR[Defs_PercentPlayed_Progress{cid}{lid}]</value>
         <value condition="String.IsEqual({listitemposition}.Overlay,OverlayWatched.png) + !Skin.HasSetting(Indicator.DisableWatched)">100</value>
@@ -120,19 +120,15 @@
 
 
     <variable name="Image_CropLogo" containers="301,591,503,513,523,573" parent="Control.HasFocus({id})">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),{listitemposition}.Art(tvshow.clearlogo)) + !String.IsEmpty({listitemposition}.Art(tvshow.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
 
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),{listitemposition}.Art(artist.clearlogo)) + !String.IsEmpty({listitemposition}.Art(artist.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.FileNameAndPath),{listitemposition}.FileNameAndPath)">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
 
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),{listitemposition}.Art(clearlogo)) + !String.IsEmpty({listitemposition}.Art(clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty({listitemposition}.Art(tvshow.clearlogo))">$INFO[{listitemposition}.Art(tvshow.clearlogo)]</value>
 
-        <value condition="!String.IsEmpty({listitemposition}.Art(tvshow.clearlogo)) + !Window.IsVisible(1120)">$INFO[{listitemposition}.Art(tvshow.clearlogo)]</value>
+        <value condition="!String.IsEmpty({listitemposition}.Art(artist.clearlogo))">$INFO[{listitemposition}.Art(artist.clearlogo)]</value>
 
-        <value condition="!String.IsEmpty({listitemposition}.Art(artist.clearlogo)) + !Window.IsVisible(1120)">$INFO[{listitemposition}.Art(artist.clearlogo)]</value>
+        <value condition="!String.IsEmpty({listitemposition}.Art(clearlogo))">$INFO[{listitemposition}.Art(clearlogo)]</value>
 
-        <value condition="!String.IsEmpty({listitemposition}.Art(clearlogo)) + !Window.IsVisible(1120)">$INFO[{listitemposition}.Art(clearlogo)]</value>
-
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
     </variable>
 
 

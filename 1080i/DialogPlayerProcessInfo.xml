@@ -11,12 +11,12 @@
             <include content="Animation_SlideIn_Dialog">
                 <param name="windowopen_delay">200</param>
             </include>
-            <include content="Object_Include" condition="VideoPlayer.Content(livetv)">
-                <height>680</height>
+            <include content="Object_Height" condition="VideoPlayer.Content(livetv)">
+                <param name="height">680</param>
             </include>
             <height>410</height>
             <width>1080</width>
-            <left>row_height_x50</left>
+            <left>grid_x04</left>
             <bottom>160</bottom>
             <control type="image">
                 <bottom>-16</bottom>
@@ -30,8 +30,8 @@
             </include>
             <control type="grouplist">
                 <top>120</top>
-                <left>dialog_pad</left>
-                <right>dialog_pad</right>
+                <left>grid_x04</left>
+                <right>grid_x04</right>
                 <itemgap>10</itemgap>
                 <orientation>vertical</orientation>
                 <control type="label">
@@ -110,8 +110,8 @@
             </control>
             <control type="grouplist">
                 <top>120</top>
-                <left>dialog_pad</left>
-                <right>dialog_pad</right>
+                <left>grid_x04</left>
+                <right>grid_x04</right>
                 <itemgap>10</itemgap>
                 <orientation>vertical</orientation>
                 <control type="label">

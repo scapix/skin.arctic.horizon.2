@@ -13,14 +13,14 @@
     </variable>
     <variable name="Defs_PercentPlayed_C50">
         <value condition="Window.IsVisible(AddonBrowser.xml) + String.EndsWith(Container(50).ListItem.Label2,%)">$INFO[Container(50).ListItem.Label2]</value>
-        <value condition="!String.IsEmpty(Container(50).ListItem.Property(WatchedProgress)) + !Integer.IsEqual(Container(50).ListItem.Property(WatchedProgress),0)">$INFO[Container(50).ListItem.Property(WatchedProgress)]</value>
+        <value condition="!String.IsEmpty(Container(50).ListItem.Property(WatchedProgress)) + !Integer.IsEqual(Container(50).ListItem.Property(WatchedProgress),0) + [!Integer.IsEqual(Container(50).ListItem.Property(WatchedProgress),100) | !Skin.HasSetting(Indicator.DisableWatched)]">$INFO[Container(50).ListItem.Property(WatchedProgress)]</value>
         <value condition="!String.IsEmpty(Container(50).ListItem.PercentPlayed) + [!Integer.IsEqual(Container(50).ListItem.PercentPlayed,0) | Container(50).ListItem.IsResumable]">$INFO[Container(50).ListItem.PercentPlayed]</value>
         <value condition="!Integer.IsEqual(Container(50).ListItem.Progress,0) + $EXP[Exp_WidgetWindow]">$VAR[Defs_PercentPlayed_Progress_C50]</value>
         <value condition="String.IsEqual(Container(50).ListItem.Overlay,OverlayWatched.png) + !Skin.HasSetting(Indicator.DisableWatched)">100</value>
     </variable>
     <variable name="Defs_PercentPlayed">
         <value condition="Window.IsVisible(AddonBrowser.xml) + String.EndsWith(ListItem.Label2,%)">$INFO[ListItem.Label2]</value>
-        <value condition="!String.IsEmpty(ListItem.Property(WatchedProgress)) + !Integer.IsEqual(ListItem.Property(WatchedProgress),0)">$INFO[ListItem.Property(WatchedProgress)]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(WatchedProgress)) + !Integer.IsEqual(ListItem.Property(WatchedProgress),0) + [!Integer.IsEqual(ListItem.Property(WatchedProgress),100) | !Skin.HasSetting(Indicator.DisableWatched)]">$INFO[ListItem.Property(WatchedProgress)]</value>
         <value condition="!String.IsEmpty(ListItem.PercentPlayed) + [!Integer.IsEqual(ListItem.PercentPlayed,0) | ListItem.IsResumable]">$INFO[ListItem.PercentPlayed]</value>
         <value condition="!Integer.IsEqual(ListItem.Progress,0) + $EXP[Exp_WidgetWindow]">$VAR[Defs_PercentPlayed_Progress]</value>
         <value condition="String.IsEqual(ListItem.Overlay,OverlayWatched.png) + !Skin.HasSetting(Indicator.DisableWatched)">100</value>
@@ -230,67 +230,46 @@
         <value condition="Integer.IsEqual(ListItem.Progress,100)">$NUMBER[100]</value>
     </variable>
     <variable name="Image_CropLogo_C301">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(301).ListItem.Art(tvshow.clearlogo)) + !String.IsEmpty(Container(301).ListItem.Art(tvshow.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(301).ListItem.Art(artist.clearlogo)) + !String.IsEmpty(Container(301).ListItem.Art(artist.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(301).ListItem.Art(clearlogo)) + !String.IsEmpty(Container(301).ListItem.Art(clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Container(301).ListItem.Art(tvshow.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(301).ListItem.Art(tvshow.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(301).ListItem.Art(artist.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(301).ListItem.Art(artist.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(301).ListItem.Art(clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(301).ListItem.Art(clearlogo)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.FileNameAndPath),Container(301).ListItem.FileNameAndPath)">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Container(301).ListItem.Art(tvshow.clearlogo))">$INFO[Container(301).ListItem.Art(tvshow.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(301).ListItem.Art(artist.clearlogo))">$INFO[Container(301).ListItem.Art(artist.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(301).ListItem.Art(clearlogo))">$INFO[Container(301).ListItem.Art(clearlogo)]</value>
     </variable>
     <variable name="Image_CropLogo_C591">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(591).ListItem.Art(tvshow.clearlogo)) + !String.IsEmpty(Container(591).ListItem.Art(tvshow.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(591).ListItem.Art(artist.clearlogo)) + !String.IsEmpty(Container(591).ListItem.Art(artist.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(591).ListItem.Art(clearlogo)) + !String.IsEmpty(Container(591).ListItem.Art(clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Container(591).ListItem.Art(tvshow.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(591).ListItem.Art(tvshow.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(591).ListItem.Art(artist.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(591).ListItem.Art(artist.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(591).ListItem.Art(clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(591).ListItem.Art(clearlogo)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.FileNameAndPath),Container(591).ListItem.FileNameAndPath)">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Container(591).ListItem.Art(tvshow.clearlogo))">$INFO[Container(591).ListItem.Art(tvshow.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(591).ListItem.Art(artist.clearlogo))">$INFO[Container(591).ListItem.Art(artist.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(591).ListItem.Art(clearlogo))">$INFO[Container(591).ListItem.Art(clearlogo)]</value>
     </variable>
     <variable name="Image_CropLogo_C503">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(503).ListItem.Art(tvshow.clearlogo)) + !String.IsEmpty(Container(503).ListItem.Art(tvshow.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(503).ListItem.Art(artist.clearlogo)) + !String.IsEmpty(Container(503).ListItem.Art(artist.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(503).ListItem.Art(clearlogo)) + !String.IsEmpty(Container(503).ListItem.Art(clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Container(503).ListItem.Art(tvshow.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(503).ListItem.Art(tvshow.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(503).ListItem.Art(artist.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(503).ListItem.Art(artist.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(503).ListItem.Art(clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(503).ListItem.Art(clearlogo)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.FileNameAndPath),Container(503).ListItem.FileNameAndPath)">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Container(503).ListItem.Art(tvshow.clearlogo))">$INFO[Container(503).ListItem.Art(tvshow.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(503).ListItem.Art(artist.clearlogo))">$INFO[Container(503).ListItem.Art(artist.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(503).ListItem.Art(clearlogo))">$INFO[Container(503).ListItem.Art(clearlogo)]</value>
     </variable>
     <variable name="Image_CropLogo_C513">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(513).ListItem.Art(tvshow.clearlogo)) + !String.IsEmpty(Container(513).ListItem.Art(tvshow.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(513).ListItem.Art(artist.clearlogo)) + !String.IsEmpty(Container(513).ListItem.Art(artist.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(513).ListItem.Art(clearlogo)) + !String.IsEmpty(Container(513).ListItem.Art(clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Container(513).ListItem.Art(tvshow.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(513).ListItem.Art(tvshow.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(513).ListItem.Art(artist.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(513).ListItem.Art(artist.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(513).ListItem.Art(clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(513).ListItem.Art(clearlogo)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.FileNameAndPath),Container(513).ListItem.FileNameAndPath)">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Container(513).ListItem.Art(tvshow.clearlogo))">$INFO[Container(513).ListItem.Art(tvshow.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(513).ListItem.Art(artist.clearlogo))">$INFO[Container(513).ListItem.Art(artist.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(513).ListItem.Art(clearlogo))">$INFO[Container(513).ListItem.Art(clearlogo)]</value>
     </variable>
     <variable name="Image_CropLogo_C523">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(523).ListItem.Art(tvshow.clearlogo)) + !String.IsEmpty(Container(523).ListItem.Art(tvshow.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(523).ListItem.Art(artist.clearlogo)) + !String.IsEmpty(Container(523).ListItem.Art(artist.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(523).ListItem.Art(clearlogo)) + !String.IsEmpty(Container(523).ListItem.Art(clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Container(523).ListItem.Art(tvshow.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(523).ListItem.Art(tvshow.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(523).ListItem.Art(artist.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(523).ListItem.Art(artist.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(523).ListItem.Art(clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(523).ListItem.Art(clearlogo)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.FileNameAndPath),Container(523).ListItem.FileNameAndPath)">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Container(523).ListItem.Art(tvshow.clearlogo))">$INFO[Container(523).ListItem.Art(tvshow.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(523).ListItem.Art(artist.clearlogo))">$INFO[Container(523).ListItem.Art(artist.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(523).ListItem.Art(clearlogo))">$INFO[Container(523).ListItem.Art(clearlogo)]</value>
     </variable>
     <variable name="Image_CropLogo_C573">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(573).ListItem.Art(tvshow.clearlogo)) + !String.IsEmpty(Container(573).ListItem.Art(tvshow.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(573).ListItem.Art(artist.clearlogo)) + !String.IsEmpty(Container(573).ListItem.Art(artist.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),Container(573).ListItem.Art(clearlogo)) + !String.IsEmpty(Container(573).ListItem.Art(clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Container(573).ListItem.Art(tvshow.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(573).ListItem.Art(tvshow.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(573).ListItem.Art(artist.clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(573).ListItem.Art(artist.clearlogo)]</value>
-        <value condition="!String.IsEmpty(Container(573).ListItem.Art(clearlogo)) + !Window.IsVisible(1120)">$INFO[Container(573).ListItem.Art(clearlogo)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.FileNameAndPath),Container(573).ListItem.FileNameAndPath)">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Container(573).ListItem.Art(tvshow.clearlogo))">$INFO[Container(573).ListItem.Art(tvshow.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(573).ListItem.Art(artist.clearlogo))">$INFO[Container(573).ListItem.Art(artist.clearlogo)]</value>
+        <value condition="!String.IsEmpty(Container(573).ListItem.Art(clearlogo))">$INFO[Container(573).ListItem.Art(clearlogo)]</value>
     </variable>
     <variable name="Image_CropLogo">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),ListItem.Art(tvshow.clearlogo)) + !String.IsEmpty(ListItem.Art(tvshow.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),ListItem.Art(artist.clearlogo)) + !String.IsEmpty(ListItem.Art(artist.clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.CropImage.Original),ListItem.Art(clearlogo)) + !String.IsEmpty(ListItem.Art(clearlogo))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
-        <value condition="!String.IsEmpty(ListItem.Art(tvshow.clearlogo)) + !Window.IsVisible(1120)">$INFO[ListItem.Art(tvshow.clearlogo)]</value>
-        <value condition="!String.IsEmpty(ListItem.Art(artist.clearlogo)) + !Window.IsVisible(1120)">$INFO[ListItem.Art(artist.clearlogo)]</value>
-        <value condition="!String.IsEmpty(ListItem.Art(clearlogo)) + !Window.IsVisible(1120)">$INFO[ListItem.Art(clearlogo)]</value>
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage))">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.CropImage)) + String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.FileNameAndPath),ListItem.FileNameAndPath)">$INFO[Window(Home).Property(TMDbHelper.ListItem.CropImage)]</value>
+        <value condition="!String.IsEmpty(ListItem.Art(tvshow.clearlogo))">$INFO[ListItem.Art(tvshow.clearlogo)]</value>
+        <value condition="!String.IsEmpty(ListItem.Art(artist.clearlogo))">$INFO[ListItem.Art(artist.clearlogo)]</value>
+        <value condition="!String.IsEmpty(ListItem.Art(clearlogo))">$INFO[ListItem.Art(clearlogo)]</value>
     </variable>
     <variable name="Image_CropLogo_Parent">
         <value condition="Control.HasFocus(301)">$VAR[Image_CropLogo_C301]</value>
