@@ -4,7 +4,7 @@
     <!-- Main Group for DialogInfo -->
     <include name="DialogInfo_MainGroup">
         <control type="group">
-            <visible>!Window.IsActive(1120)</visible>
+            <visible>!Window.IsActive(1120) + !Control.HasFocus(50)</visible>
             <animation effect="slide" start="0" end="-infodialog_left_w" time="800" tween="cubic" easing="out" reversible="false">Hidden</animation>
             <animation effect="slide" end="0" start="-infodialog_left_w" time="800" tween="cubic" easing="out" reversible="false">Visible</animation>
             <nested />
@@ -323,7 +323,7 @@
 
     <!-- PlotBox Large -->
     <include name="DialogInfo_PlotBox">
-        <param name="label">$INFO[ListItem.Tagline,[B]$LOCALIZE[202][/B][CR],[CR][CR]]$VAR[Label_Plot,[B]$LOCALIZE[31028][/B][CR],]$VAR[Label_OverlayCritics]</param>
+        <param name="label">$INFO[ListItem.Tagline,[B]$LOCALIZE[202][/B][CR],[CR][CR]]$VAR[Label_Plot,[B]$LOCALIZE[31028][/B][CR],]$VAR[Label_OverlayCritics]$VAR[Label_OverlayAwardsWon]$VAR[Label_OverlayAwardsNominated]</param>
         <definition>
             <control type="group">
                 <include>Info_Title</include>

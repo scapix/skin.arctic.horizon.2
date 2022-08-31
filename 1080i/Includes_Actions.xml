@@ -232,14 +232,22 @@
     </include>
 
 
-    <include name="Action_Blur_Onload">
-        <param name="sourceimage" default="Art(fanart)" />
+    <include name="_Action_Blur_Onload">
+        <param name="sourceimage">Art(fanart)</param>
         <definition>
             <onload>ClearProperty(TMDbHelper.WidgetContainer,Home)</onload>
             <onload>Skin.SetString(TMDbHelper.Blur.Radius,15)</onload>
             <onload>SetProperty(TMDbHelper.Blur.SourceImage,$PARAM[sourceimage],Home)</onload>
-            <onload>SetProperty(TMDbHelper.Blur.Fallback,special://skin/fanart.jpg,Home)</onload>
+            <onload>SetProperty(TMDbHelper.Blur.Fallback,common/blur2.png,Home)</onload>
         </definition>
+    </include>
+    <include name="Action_Blur_Onload">
+        <include content="_Action_Blur_Onload">
+            <param name="sourceimage">Art(fanart)</param>
+        </include>
+        <!-- <include content="_Action_Blur_Onload">
+            <param name="sourceimage">Art(keyart)|Art(fanart)</param>
+        </include> -->
     </include>
 
     <include name="Action_BuildTextures_Onload">
