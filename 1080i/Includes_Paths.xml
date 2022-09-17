@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+
+    <variable name="Path_Library_Collections">
+        <value condition="!String.IsEmpty(ListItem.DBID) + String.IsEqual(ListItem.DBType,tvshow) + ListItem.IsFolder">$INFO[ListItem.DBID,videodb://tvshows/titles/,/]</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) + ListItem.IsFolder + String.IsEqual(ListItem.Label,ListItem.TvShowTitle)">$INFO[ListItem.FolderPath]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">$INFO[ListItem.SetID,videodb://movies/sets/,/]</value>
+        <value condition="ListItem.IsCollection">$INFO[ListItem.DBID,videodb://movies/sets/,/]</value>
+    </variable>
+
+    <variable name="Path_Library_FromStudio">
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22studio%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Studio]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">videodb://tvshows/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22studio%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Studio]%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d</value>
+    </variable>
+
+    <variable name="Path_Library_FromDirector">
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22director%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Director]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+    </variable>
+
+    <variable name="Path_Library_FromWriter">
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22writers%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Writer]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+    </variable>
+
+    <variable name="Path_Library_FromGenre">
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22genre%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Genre]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">videodb://tvshows/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22genre%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Genre]%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d</value>
+    </variable>
+
+    <variable name="Path_Library_FromYear">
+        <value condition="String.IsEqual(ListItem.DBType,movie)">videodb://movies/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22year%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Year]%22%5d%7d%5d%7d%2c%22type%22%3a%22movies%22%7d</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">videodb://tvshows/titles/?xsp=%7b%22rules%22%3a%7b%22and%22%3a%5b%7b%22field%22%3a%22year%22%2c%22operator%22%3a%22is%22%2c%22value%22%3a%5b%22$INFO[ListItem.Year]%22%5d%7d%5d%7d%2c%22type%22%3a%22tvshows%22%7d</value>
+    </variable>
+
     <variable name="Path_DiscoverWidget">
         <value condition="Integer.IsEqual(Container(590).NumItems,6)">$INFO[Container(590).ListItemAbsolute(0).FolderPath,,&amp;nextpage=False&amp;sort_by=popularity.desc]</value>
         <value>$INFO[Container(590).ListItemAbsolute(0).FolderPath,,&amp;nextpage=False]</value>
@@ -157,13 +188,44 @@
         <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season)">plugin://plugin.video.themoviedb.helper/?info=trakt_upnext&amp;type=tv$VAR[Path_Param_Widget]$VAR[Path_Param_Query]</value>
     </variable>
 
+    <variable name="Path_Youtube_Query">
+        <value condition="[String.IsEqual(ListItem.DBType,set) | ListItem.IsCollection] + !String.IsEmpty(ListItem.Set)">$INFO[ListItem.Set]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]$INFO[ListItem.Year, ,] Movie</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]$INFO[ListItem.Year, ,]</value>
+        <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]$INFO[ListItem.Season, Season ,]</value>
+        <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.TVShowTitle,, ]$INFO[ListItem.Title]</value>
+        <value condition="[String.IsEqual(ListItem.DBType,actor) | String.IsEqual(ListItem.Property(item.type),person)] + !String.IsEmpty(ListItem.Label)">$INFO[ListItem.Label]</value>
+        <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.AlbumArtist)">$INFO[ListItem.AlbumArtist] Music</value>
+        <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Artist)">$INFO[ListItem.Artist] Music</value>
+        <value condition="String.IsEqual(ListItem.DBType,album) + !String.IsEmpty(ListItem.Album)">$INFO[ListItem.AlbumArtist,, ]$INFO[ListItem.Album] Music</value>
+        <value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title) + !String.IsEmpty(ListItem.AlbumArtist)">$INFO[ListItem.AlbumArtist,, ]$INFO[ListItem.Title] Music</value>
+        <value condition="String.IsEqual(ListItem.DBType,song) + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Artist,, ]$INFO[ListItem.Title] Music</value>
+        <value condition="!String.IsEmpty(ListItem.TvShowTitle)">$INFO[ListItem.TvShowTitle]</value>
+        <value condition="!String.IsEmpty(ListItem.AlbumArtist)">$INFO[ListItem.AlbumArtist]</value>
+        <value condition="!String.IsEmpty(ListItem.Artist)">$INFO[ListItem.Artist]</value>
+        <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+        <value condition="!String.IsEmpty(ListItem.Label)">$INFO[ListItem.Label]</value>
+    </variable>
+
     <variable name="Path_Youtube">
-        <value condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season)] + !String.IsEmpty(ListItem.TvShowTitle)">plugin://plugin.video.youtube/search/?q=$INFO[ListItem.TvShowTitle]&amp;search_type=notvalid</value>
-        <value condition="[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,movie)] + !String.IsEmpty(ListItem.Title)">plugin://plugin.video.youtube/search/?q=$INFO[ListItem.Title]&amp;search_type=notvalid</value>
+        <value>$VAR[Path_Youtube_Query,plugin://plugin.video.youtube/search/?q=,&amp;search_type=notvalid]</value>
     </variable>
 
     <variable name="Path_Seasons">
         <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,episode)">plugin://plugin.video.themoviedb.helper/?info=seasons&amp;type=tv&amp;fanarttv=false$VAR[Path_Param_Query]</value>
+    </variable>
+
+    <variable name="Path_Wikipedia_Title">
+        <value condition="!String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.TVShowTitle]</value>
+        <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+        <value>$INFO[ListItem.Label]</value>
+    </variable>
+
+    <variable name="Path_Wikipedia_Type">
+        <value condition="String.IsEqual(ListItem.DBType,tvshow)">tv</value>
+        <value condition="String.IsEqual(ListItem.DBType,season)">tv</value>
+        <value condition="String.IsEqual(ListItem.DBType,episode)">tv</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">movie</value>
     </variable>
 
 </includes>
