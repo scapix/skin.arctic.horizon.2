@@ -1474,3 +1474,28 @@ msgstr ""
 msgctxt "#31292"
 msgid "Do nothing"
 msgstr ""
+
+#: /1080i/VideoOSD.xml
+msgctxt "#31293"
+msgid "Press down for cast and more info"
+msgstr ""
+
+#: /1080i/Includes_Labels.xml
+msgctxt "#31294"
+msgid "Press down for bookmarks and chapters"
+msgstr ""
+
+#: /1080i/Includes_Labels.xml
+msgctxt "#31295"
+msgid "Press down for channels"
+msgstr ""
+
+#: /1080i/Includes_Labels.xml
+msgctxt "#31296"
+msgid "Press down for playlist"
+msgstr ""
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31297"
+msgid "Minimal icon-only menu style"
+msgstr ""
