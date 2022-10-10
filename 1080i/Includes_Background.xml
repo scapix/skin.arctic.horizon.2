@@ -287,7 +287,8 @@
                 <include>Animation_Background_FadeInOut</include>
                 <include content="Object_Control">
                     <param name="control" value="image" />
-                    <texture colordiffuse="main_bg_100">background/floor.png</texture>
+                    <visible>Player.HasVideo</visible>
+                    <texture colordiffuse="main_bg_45">background/bg.jpg</texture>
                 </include>
             </control>
         </definition>
