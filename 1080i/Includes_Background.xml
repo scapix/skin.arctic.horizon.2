@@ -61,7 +61,6 @@
         <include content="_Background_Blur">
             <param name="flixart_size">flixart_size_l</param>
         </include>
-        <!-- <include condition="!Skin.HasSetting(UseLargerFlixArt)">_Background_Blur</include> -->
     </include>
     <include name="_Background_Blur">
         <param name="flixart_size">flixart_size_s</param>
@@ -263,6 +262,7 @@
                 <include condition="System.HasAddon(resource.images.arctic.waves)">Background_BusyLoader</include>
                 <include content="Object_Control" condition="!Skin.String(BackgroundStyle,Fanart) + Skin.String(ForegroundStyle,KeyArt)">
                     <param name="control">group</param>
+                    <include>Background_NotVideo</include>
                     <include content="View_Visibility_Common">
                         <param name="animation_include">Animation_Foreground_Visible_FadeInOut</param>
                         <param name="visible_infodialogs">true</param>
@@ -272,11 +272,11 @@
                 </include>
                 <include content="Object_Control" condition="!Skin.String(BackgroundStyle,Fanart) + Skin.String(ForegroundStyle,FlixArt)">
                     <param name="control">group</param>
+                    <include>Background_NotVideo</include>
                     <include content="View_Visibility_Common">
                         <param name="animation_include">Animation_Foreground_Visible_FadeInOut</param>
                         <param name="visible_widgets">true</param>
                     </include>
-                    <!-- <include condition="!Skin.HasSetting(UseLargerFlixArt)">View_FlixArt</include> -->
                     <include content="View_FlixArt">
                         <param name="flixart_size">flixart_size_l</param>
                     </include>
@@ -285,10 +285,10 @@
             </include>
             <control type="group">
                 <include>Animation_Background_FadeInOut</include>
-                <!-- <include content="Object_Control" condition="Skin.String(DividerStyle,Fade) | String.IsEmpty(Skin.String(DividerStyle))" >
+                <include content="Object_Control">
                     <param name="control" value="image" />
                     <texture colordiffuse="main_bg_100">background/floor.png</texture>
-                </include> -->
+                </include>
             </control>
         </definition>
     </include>
