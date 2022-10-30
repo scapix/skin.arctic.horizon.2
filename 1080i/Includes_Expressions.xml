@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
 
+    <expression name="Exp_EndWidget_IsFullSize">[String.IsEqual(Container(99994).ListItem(-1).Property(widgetAspect),Lovefilm)]</expression>
+    <expression name="Exp_EndWidget_IsOverSize">[String.IsEqual(Container(99994).ListItem(-1).Property(widgetAspect),Feature Poster) | String.IsEqual(Container(99994).ListItem(-1).Property(widgetAspect),Feature Landscape)]</expression>
+    <expression name="Exp_EndWidget_IsMiniSize">[String.IsEqual(Container(99994).ListItem(-1).Property(widgetAspect),Text) | String.IsEqual(Container(99994).ListItem(-1).Property(widgetAspect),Apps) | String.IsEqual(Container(99994).ListItem(-1).Property(widgetAspect),Button)]</expression>
+
     <expression name="Exp_InfoDialog_IsFolder">[String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,set)]</expression>
 
-    <expression name="Exp_OSD_ExpandInfo">[!String.IsEmpty(Window(Home).Property(OSDExpandInfo)) | Window.IsActive(VideoOSDBookmarks.xml)]</expression>
+    <expression name="Exp_OSD_ExpandInfo">[!String.IsEmpty(Window(Home).Property(OSDExpandInfo)) | Window.IsActive(videobookmarks) | Window.IsActive(pvrchannelguide)]</expression>
 
     <expression name="Exp_ShowBigPosterInfo">[Control.HasFocus(58) + System.IdleTime(3) + !Skin.HasSetting(Views.DisableBigPosterRowAutoInfo)]</expression>
 
@@ -29,9 +33,19 @@
 
     <expression name="Exp_HasPagesItems">[[Control.HasFocus(60) | Control.HasFocus(63) | Control.HasFocus(64) | Control.HasFocus(65)]]</expression>
 
-    <expression name="Exp_HasBackgroundFanart">[Window.IsVisible(MyPVRGuide.xml) | Window.IsMedia | $EXP[Exp_InfoDialogs] | [Skin.HasSetting(HomeFanart) + [Window.IsActive(1114) | Window.IsActive(Home)]]]</expression>
+    <expression name="Exp_HasBackgroundFanart">[[[$EXP[Exp_IsMediaWindow] | $EXP[Exp_HasBackgroundFanart_Widgets]] + !$EXP[Exp_InfoDialogs]] | $EXP[Exp_HasBackgroundFanart_InfoDialogs]]</expression>
 
-    <expression name="Exp_HasExtraFanart">[!Skin.HasSetting(Background.DisableExtraFanart) + [!String.IsEmpty(ListItem.Art(fanart1)) | !String.IsEmpty(ListItem.Art(tvshow.fanart1))]]</expression>
+    <expression name="Exp_HasBackgroundFanart_InfoDialogs">[$EXP[Exp_InfoDialogs] + !Skin.HasSetting(Info.EnableSimpleBackground)]</expression>
+
+    <expression name="Exp_HasBackgroundFanart_Widgets">[$EXP[Exp_IsWidgetWindow] + [Skin.HasSetting(Widgets.DisableSimpleBackground) | [!Skin.HasSetting(Widgets.DisableExpandedBackground) + $EXP[Exp_IsExpandedWidget]]]]</expression>
+
+    <expression name="Exp_IsExpandedWidget">[String.IsEqual(Window.Property(Slide.WidgetInfoStyle),Full) | [Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + !String.IsEmpty(Container(300).ListItem.Property(WidgetPath)) + !String.IsEmpty(Container(300).ListItem.Property(WidgetStyle)) + !String.IsEqual(Container(300).ListItem.Property(WidgetPath),Fullscreen)]]</expression>
+
+    <expression name="Exp_IsWidgetWindow">[Window.IsActive(1114) | Window.IsActive(Home) | Window.IsVisible(1120) | Window.IsVisible(1121) | Window.IsVisible(1122)]</expression>
+
+    <expression name="Exp_IsMediaWindow">[Window.IsMedia | Window.IsVisible(MyPVRGUide.xml) | Window.IsVisible(MyPVRChannels.xml)]</expression>
+
+    <expression name="Exp_HasExtraFanart">[Skin.HasSetting(Background.ExtraFanart) + [!String.IsEmpty(ListItem.Art(fanart1)) | !String.IsEmpty(ListItem.Art(tvshow.fanart1))]]</expression>
 
     <expression name="Exp_HasArtLandscape">[!String.IsEmpty(ListItem.Art(landscape)) | !String.IsEmpty(ListItem.Art(tvshow.landscape)) | !String.IsEmpty(ListItem.Art(season.landscape))]</expression>
 
@@ -55,13 +69,11 @@
 
     <expression name="Exp_FullscreenWidgetStandard">[!String.IsEmpty(Container(300).ListItem.Property(widgetPath)) + [String.IsEqual(Container(300).ListItem.Property(widgetStyle),Fullscreen) | String.IsEmpty(Container(300).ListItem.Property(widgetStyle))]]</expression>
 
-    <expression name="Exp_ShowSideArt">[Window.IsMedia | String.IsEqual(Window.Property(Slide.WidgetInfoStyle),Full)]</expression>
-
     <expression name="Exp_PVRWindows">[Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml) | Window.IsVisible(MyPVRTimers.xml) | Window.IsVisible(MyPVRRecordings.xml) | Window.IsVisible(MyPVRSearch.xml)]</expression>
 
-    <expression name="Exp_InfoDialogs">[Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml) | Window.IsVisible(DialogAddonInfo.xml) | Window.IsVisible(DialogPVRInfo.xml)]
+    <expression name="Exp_InfoDialogs">[Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml) | Window.IsVisible(DialogAddonInfo.xml) | Window.IsVisible(DialogPVRInfo.xml) | Window.IsVisible(script-tmdbhelper-wikipedia.xml)]
     </expression>
-    <expression name="Exp_InfoDialogs_Active">[Window.IsActive(DialogVideoInfo.xml) | Window.IsActive(DialogMusicInfo.xml) | Window.IsActive(DialogAddonInfo.xml) | Window.IsActive(DialogPVRInfo.xml)]
+    <expression name="Exp_InfoDialogs_Active">[Window.IsActive(DialogVideoInfo.xml) | Window.IsActive(DialogMusicInfo.xml) | Window.IsActive(DialogAddonInfo.xml) | Window.IsActive(DialogPVRInfo.xml) | Window.IsActive(script-tmdbhelper-wikipedia.xml)]
     </expression>
 
     <expression name="Exp_OverlayDialogs">[Window.IsVisible(FileBrowser.xml) | Window.IsVisible(DialogSelect.xml) | Window.IsVisible(DialogAddonSettings.xml) | Window.IsVisible(DialogKeyboard.xml) | Window.Isvisible(1113) | Window.IsVisible(1111) | Window.IsVisible(DialogContextMenu.xml) | Window.IsVisible(DialogConfirm.xml)]

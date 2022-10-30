@@ -25,7 +25,7 @@
     <include name="Object_HitRect"><hitrect x="$PARAM[x]" y="$PARAM[y]" w="$PARAM[w]" h="$PARAM[h]" /></include>
     <include name="Object_DefaultControl"><defaultcontrol always="$PARAM[always]">$PARAM[defaultcontrol]</defaultcontrol></include>
     <include name="Object_Texture">
-        <texture colordiffuse="$PARAM[colordiffuse]" flipx="$PARAM[flipx]" flipy="$PARAM[flipy]" background="$PARAM[background]">$PARAM[texture]</texture>
+        <texture colordiffuse="$PARAM[colordiffuse]" flipx="$PARAM[flipx]" flipy="$PARAM[flipy]" background="$PARAM[background]" diffuse="$PARAM[diffuse]">$PARAM[texture]</texture>
     </include>
     <include name="Object_TextureFocus">
         <texturefocus colordiffuse="$PARAM[colordiffuse]" flipx="$PARAM[flipx]" flipy="$PARAM[flipy]" border="$PARAM[border]">$PARAM[texture]</texturefocus>
@@ -59,15 +59,9 @@
     </include>
 
     <include name="Object_Control">
-        <param name="padding" default="false" />
-        <definition>
-            <control type="$PARAM[control]" id="$PARAM[id]">
-                <include content="Dimension_Padding" condition="$PARAM[padding]">
-                    <param name="pad" value="$PARAM[pad]" />
-                </include>
-                <nested />
-            </control>
-        </definition>
+        <control type="$PARAM[control]" id="$PARAM[id]">
+            <nested />
+        </control>
     </include>
 
     <include name="Object_Hidden_Button">
@@ -83,6 +77,21 @@
                 <texturenofocus />
                 <font />
                 <visible allowhiddenfocus="true">False</visible>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Object_Hidden_List">
+        <param name="control" default="list" />
+        <definition>
+            <control type="$PARAM[control]" id="$PARAM[id]">
+                <nested />
+                <orientation>vertical</orientation>
+                <width>1</width>
+                <height>1</height>
+                <left>-1920</left>
+                <itemlayout width="1" height="1" />
+                <focusedlayout width="1" height="1" />
             </control>
         </definition>
     </include>
@@ -112,8 +121,7 @@
             </include>
             <include content="Object_Control" condition="$PARAM[selected]">
                 <param name="control" value="image" />
-                <param name="padding" value="true" />
-                <param name="pad" value="-1" />
+                <include content="Dimension_Padding"><param name="pad">-2</param></include>
                 <include>Texture_Box_Highlight_V</include>
             </include>
         </definition>
@@ -229,11 +237,17 @@
             <control type="image">
                 <height>view_top</height>
 				<!-- scape -->
-                <!-- <texture>common/dim-top-curve.png</texture> -->
+                <!--  <texture>common/dim-top-bezier.png</texture> -->
                 <animation type="Visible" reversible="false">
                     <effect type="fade" start="0" end="100" time="400"/>
                 </animation>
                 <animation type="Hidden" reversible="false">
+                    <effect type="fade" end="0" start="100" time="400"/>
+                </animation>
+                <animation type="WindowOpen" reversible="false">
+                    <effect type="fade" start="0" end="100" time="400"/>
+                </animation>
+                <animation type="WindowClose" reversible="false">
                     <effect type="fade" end="0" start="100" time="400"/>
                 </animation>
                 <visible>$PARAM[visible_top]</visible>
@@ -244,11 +258,17 @@
                 <bottom>0</bottom>
                 <height>view_top</height>
 				<!-- scape -->
-                <!-- <texture flipy="true">common/dim-top-curve.png</texture> -->
+                <!-- <texture flipy="true">common/dim-top-bezier.png</texture> -->
                 <animation type="Visible" reversible="false">
                     <effect type="fade" start="0" end="100" time="400"/>
                 </animation>
                 <animation type="Hidden" reversible="false">
+                    <effect type="fade" end="0" start="100" time="400"/>
+                </animation>
+                <animation type="WindowOpen" reversible="false">
+                    <effect type="fade" start="0" end="100" time="400"/>
+                </animation>
+                <animation type="WindowClose" reversible="false">
                     <effect type="fade" end="0" start="100" time="400"/>
                 </animation>
                 <visible>$PARAM[visible_bottom]</visible>
@@ -406,7 +426,7 @@
                     <include content="Texture_Shadow_40">
                         <param name="colordiffuse" value="$PARAM[shadow_colordiffuse]" />
                     </include>
-                    <texture colordiffuse="$PARAM[posterback_colordiffuse]" border="10">common/box.png</texture>
+                    <texture colordiffuse="$PARAM[posterback_colordiffuse]" border="12">common/box.png</texture>
                 </include>
                 <nested />
                 <include content="Object_Control">
@@ -418,7 +438,7 @@
                 </include>
                 <include content="Object_Control" condition="Skin.HasSetting(Glass.BorderOutline)">
                     <param name="control" value="image" />
-                    <texture colordiffuse="overlay_line" border="10">common/box-outline.png</texture>
+                    <texture colordiffuse="overlay_line" border="12">common/box-outline.png</texture>
                 </include>
             </control>
         </definition>
@@ -428,18 +448,19 @@
         <param name="colordiffuse" default="panel_fg_12" />
         <param name="texture" default="common/panel-256-box.png" />
         <param name="shadow">true</param>
+        <param name="condition">true</param>
         <definition>
             <include content="Object_Control">
                 <param name="control" value="group" />
-                <include content="Object_Control">
+                <include content="Object_Control" condition="$PARAM[condition]">
                     <param name="control" value="image" />
                     <include condition="$PARAM[shadow]">Texture_Shadow_40</include>
-                    <texture colordiffuse="$PARAM[colordiffuse]" border="10">$PARAM[texture]</texture>
+                    <texture colordiffuse="$PARAM[colordiffuse]" border="12">$PARAM[texture]</texture>
                 </include>
                 <nested />
-                <include content="Object_Control" condition="Skin.HasSetting(Glass.BorderOutline)">
+                <include content="Object_Control" condition="Skin.HasSetting(Glass.BorderOutline) + $PARAM[condition]">
                     <param name="control" value="image" />
-                    <texture colordiffuse="overlay_line" border="10">common/box-outline.png</texture>
+                    <texture colordiffuse="overlay_line" border="12">common/box-outline.png</texture>
                 </include>
             </include>
         </definition>
@@ -450,6 +471,7 @@
         <param name="max">400</param>
         <param name="top_label_left">-40</param>
         <param name="bottom_label_left">-340</param>
+        <param name="aspectratio">scale</param>
         <definition>
             <control type="group">
                 <height>grid_x06</height>
@@ -464,7 +486,7 @@
                 <include content="Object_Control">
                     <param name="control" value="image" />
                     <bordersize>$PARAM[bordersize]</bordersize>
-                    <aspectratio scalediffuse="false">scale</aspectratio>
+                    <aspectratio scalediffuse="false">$PARAM[aspectratio]</aspectratio>
                     <texture diffuse="common/circle.png" colordiffuse="panel_fg_100">$PARAM[icon]</texture>
                 </include>
             </control>
@@ -490,39 +512,57 @@
         </definition>
     </include>
 
+    <include name="Object_InfoCircle_Image">
+        <param name="bordersize">2</param>
+        <param name="aspectratio">scale</param>
+        <param name="colordiffuse">main_bg_90</param>
+        <definition>
+            <control type="image">
+                <width>50</width>
+                <bordersize>$PARAM[bordersize]</bordersize>
+                <aspectratio scalediffuse="false">$PARAM[aspectratio]</aspectratio>
+                <texture diffuse="diffuse/circle_50.png" colordiffuse="$PARAM[colordiffuse]">$PARAM[icon]</texture>
+            </control>
+        </definition>
+    </include>
+
     <include name="Object_InfoCircle">
-        <param name="bordersize" default="2" />
+        <param name="bordersize">2</param>
+        <param name="aspectratio">scale</param>
+        <param name="colordiffuse">main_bg_90</param>
         <definition>
             <control type="group">
-                <height>grid_x06</height>
-                <include content="Object_Control">
-                    <param name="control" value="image" />
-                    <width>grid_x06</width>
-                    <bordersize>$PARAM[bordersize]</bordersize>
-                    <bordertexture colordiffuse="main_fg_90">common/circle.png</bordertexture>
-                    <texture colordiffuse="main_item">common/circle.png</texture>
-                </include>
-                <include content="Object_Control">
-                    <param name="control" value="image" />
-                    <width>grid_x06</width>
-                    <bordersize>$PARAM[bordersize]</bordersize>
-                    <aspectratio scalediffuse="false">scale</aspectratio>
-                    <texture diffuse="common/circle.png" colordiffuse="main_fg_90">$PARAM[icon]</texture>
-                </include>
+                <left>40</left>
+                <height>50</height>
+                <control type="group">
+                    <width>50</width>
+                    <control type="image">
+                        <include content="Dimension_Padding"><param name="pad">-40</param></include>
+                        <bordersize>40</bordersize>
+                        <bordertexture colordiffuse="shadow_hard">shadows/circle_50-shadow-40.png</bordertexture>
+                        <texture colordiffuse="main_fg_90">diffuse/circle_50.png</texture>
+                    </control>
+                    <include content="Object_InfoCircle_Image">
+                        <param name="bordersize">$PARAM[bordersize]</param>
+                        <param name="aspectratio">$PARAM[aspectratio]</param>
+                        <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                        <param name="icon">$PARAM[icon]</param>
+                    </include>
+                </control>
                 <nested />
                 <control type="label">
                     <left>grid_x08</left>
                     <font>font_mini_bold</font>
                     <label>$PARAM[role]</label>
                     <textcolor>main_fg_90</textcolor>
-                    <height>30</height>
+                    <height>35%</height>
                 </control>
                 <control type="label">
                     <left>grid_x08</left>
                     <font>font_mini</font>
                     <label>$PARAM[name]</label>
                     <textcolor>main_fg_70</textcolor>
-                    <height>grid_x03</height>
+                    <height>50%</height>
                     <bottom>0</bottom>
                 </control>
             </control>
@@ -888,10 +928,10 @@
         <control type="group">
             <visible>$PARAM[visible]</visible>
             <control type="image">
-                <texture colordiffuse="$PARAM[colordiffuse_back]" border="128,0,0,0">$PARAM[texture]</texture>
+                <texture colordiffuse="$PARAM[colordiffuse_back]" border="80,0,0,0">$PARAM[texture]</texture>
             </control>
             <control type="image">
-                <left>80</left>
+                <left>48</left>
                 <centertop>50%</centertop>
                 <width>64</width>
                 <height>64</height>
@@ -909,27 +949,27 @@
         <param name="invertcolor" default="false" />
         <definition>
             <control type="group" id="$PARAM[groupid]">
-                <left>-28</left>
-                <width>150</width>
+                <left>0</left>
+                <width>120</width>
                 <height>256</height>
                 <visible>$PARAM[visible]</visible>
                 <include content="Object_Info_Button_Left" condition="!$PARAM[invertcolor]">
                     <param name="visible" value="Control.HasFocus($PARAM[id]) | $PARAM[focused]" />
-                    <param name="texture" value="common/$PARAM[texturename]left.png" />
+                    <param name="texture" value="special://profile/addon_data/script.texturemaker/ArcticHorizon/$PARAM[texturename]main_h_x.png" />
                     <param name="icon" value="$PARAM[icon]" />
                     <param name="colordiffuse_icon" value="$VAR[ColorSelected]" />
-                    <param name="colordiffuse_back" value="$VAR[ColorHighlight]" />
+                    <param name="colordiffuse_back" value="white" />
                 </include>
                 <include content="Object_Info_Button_Left" condition="$PARAM[invertcolor]">
                     <param name="visible" value="Control.HasFocus($PARAM[id]) | $PARAM[focused]" />
-                    <param name="texture" value="common/$PARAM[texturename]left.png" />
+                    <param name="texture" value="common/$PARAM[texturename]main_x.png" />
                     <param name="icon" value="$PARAM[icon]" />
                     <param name="colordiffuse_icon" value="panel_bg" />
                     <param name="colordiffuse_back" value="panel_fg_100" />
                 </include>
                 <include content="Object_Info_Button_Left">
                     <param name="visible" value="![Control.HasFocus($PARAM[id]) | $PARAM[focused]]" />
-                    <param name="texture" value="common/$PARAM[texturename]left.png" />
+                    <param name="texture" value="common/$PARAM[texturename]main_x.png" />
                     <param name="icon" value="$PARAM[icon]" />
                     <param name="colordiffuse_icon" value="main_fg_70" />
                     <param name="colordiffuse_back" value="main_fg_12" />
@@ -942,13 +982,13 @@
                 <height>256</height>
                 <include content="Object_TextureFocus" condition="$PARAM[invertcolor]">
                     <param name="colordiffuse">panel_fg_100</param>
-                    <param name="texture">common/$PARAM[texturename]right_x.png</param>
+                    <param name="texture">common/$PARAM[texturename]main_y.png</param>
                 </include>
                 <include content="Object_FocusedColor" condition="$PARAM[invertcolor]">
                     <param name="focusedcolor">panel_bg</param>
                 </include>
-                <texturenofocus colordiffuse="main_fg_12">common/$PARAM[texturename]right_x.png</texturenofocus>
-                <texturefocus>special://profile/addon_data/script.texturemaker/ArcticHorizon/$PARAM[texturename]right_h_x.png</texturefocus>
+                <texturenofocus colordiffuse="main_fg_12">common/$PARAM[texturename]main_y.png</texturenofocus>
+                <texturefocus>special://profile/addon_data/script.texturemaker/ArcticHorizon/$PARAM[texturename]main_h_y.png</texturefocus>
                 <font>font_mini_bold</font>
                 <label>$PARAM[label]</label>
                 <align>left</align>
@@ -964,15 +1004,56 @@
                 <height>256</height>
                 <control type="image">
                     <visible>![Control.HasFocus($PARAM[id]) | $PARAM[focused]]</visible>
-                    <texture colordiffuse="main_fg_12">common/$PARAM[texturename]right_y.png</texture>
+                    <texture colordiffuse="main_fg_12">common/$PARAM[texturename]main_z.png</texture>
                 </control>
                 <control type="image">
                     <visible>Control.HasFocus($PARAM[id]) | $PARAM[focused]</visible>
                     <include content="Object_Texture" condition="$PARAM[invertcolor]">
                         <param name="colordiffuse">panel_fg_100</param>
-                        <param name="texture">common/$PARAM[texturename]right_y.png</param>
+                        <param name="texture">common/$PARAM[texturename]main_z.png</param>
                     </include>
-                    <texture>special://profile/addon_data/script.texturemaker/ArcticHorizon/$PARAM[texturename]right_h_y.png</texture>
+                    <texture>special://profile/addon_data/script.texturemaker/ArcticHorizon/$PARAM[texturename]main_h_z.png</texture>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Object_Info_Button_Circle">
+        <param name="visible" default="true" />
+        <param name="control" default="button" />
+        <param name="width" default="auto" />
+        <param name="focused" default="false" />
+        <param name="itemgap" default="60" />
+        <param name="texturename" default="menu" />
+        <param name="invertcolor" default="false" />
+        <definition>
+            <control type="$PARAM[control]" id="$PARAM[id]">
+                <visible>$PARAM[visible]</visible>
+                <width>150</width>
+                <height>150</height>
+                <centertop>50%</centertop>
+                <texturefocus flipy="true">special://profile/addon_data/script.texturemaker/ArcticHorizon/circlebutton_h.png</texturefocus>
+                <texturenofocus colordiffuse="main_fg_12">common/circlebutton.png</texturenofocus>
+                <nested />
+            </control>
+            <control type="group" id="$PARAM[groupid]">
+                <left>-50</left>
+                <width>110</width>
+                <visible>$PARAM[visible]</visible>
+                <control type="group">
+                    <width>70</width>
+                    <height>70</height>
+                    <centertop>50%</centertop>
+                    <control type="image">
+                        <visible>Control.HasFocus($PARAM[id])</visible>
+                        <bordersize>6</bordersize>
+                        <texture colordiffuse="$VAR[ColorSelected]">$PARAM[icon]</texture>
+                    </control>
+                    <control type="image">
+                        <visible>!Control.HasFocus($PARAM[id])</visible>
+                        <bordersize>6</bordersize>
+                        <texture colordiffuse="main_fg_70">$PARAM[icon]</texture>
+                    </control>
                 </control>
             </control>
         </definition>
@@ -1513,14 +1594,15 @@
         <param name="width" default="1180" />
         <param name="altwidth" default="1080" />
         <param name="altwidth_condition">Skin.HasSetting(Home.DisableSearchMenu)</param>
+        <param name="animations">true</param>
         <definition>
             <include content="Furniture_Topbar_Group">
-                <include content="Animation_SlideIn_Dialog">
+                <include content="Animation_SlideIn_Dialog" condition="$PARAM[animations]">
                     <param name="visible_delay" value="$PARAM[visible_delay]" />
                     <param name="windowopen_delay" value="$PARAM[windowopen_delay]" />
                     <param name="windowopen_condition" value="!Window.Previous(1114)" />
                 </include>
-                <include content="Animation_FadeOut">
+                <include content="Animation_FadeOut" condition="$PARAM[animations]">
                     <param name="windowclose_condition" value="!Window.Next(1114)" />
                 </include>
                 <include content="Object_Width" condition="$PARAM[altwidth_condition]">
@@ -1762,8 +1844,7 @@
                 <include condition="$PARAM[focusbounce]">Animation_FocusBounce</include>
                 <include content="Object_Control">
                     <param name="control" value="group" />
-                    <param name="padding" value="true" />
-                    <param name="pad" value="$PARAM[pad]" />
+                    <include content="Dimension_Padding"><param name="pad">$PARAM[pad]</param></include>
                     <include condition="$PARAM[shadow]">Object_Shadow_40</include>
                     <include content="Object_Control">
                         <param name="control" value="image" />

@@ -29,12 +29,13 @@
     </variable>
 
     <variable name="Path_Recs_Basic">
-        <value condition="String.IsEqual(ListItem.DBType,movie)">5000|info=cast$VAR[Path_Param_AggregateCast]|true|info$VAR[Path_Recs_Collection,||5002|,|false|info]||5003|info=recommendations|true|info||5004|info=similar|true|info||5091|info=posters|true|SetFocus(5291)||5092|info=fanart|true|SetFocus(5292)||5093|info=reviews|true|text||5094|info=movie_keywords|true|SetFocus(5095,0,absolute)||5010|info=crew$VAR[Path_Param_AggregateCrew]|true|info||5030|info=trakt_inlists|true|browse</value>
-        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">5000|info=cast$VAR[Path_Param_AggregateCast]|true|info$VAR[Path_Recs_Season,||5001|,|true|browse]||5003|info=recommendations|true|info||5004|info=similar|true|info||5091|info=posters|true|SetFocus(5291)||5092|info=fanart|true|SetFocus(5292)||5093|info=reviews|true|text||5010|info=crew$VAR[Path_Param_AggregateCrew]|true|info$VAR[Path_Recs_UpNext,||5011|,|true|play]||5030|info=trakt_inlists|true|browse</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie)">5000|info=cast$VAR[Path_Param_AggregateCast]|true|info$VAR[Path_Recs_Collection,||5002|,|false|info]||5003|info=recommendations|true|info||5004|info=similar|true|info||5091|info=posters|true|SetFocus(5291)||5092|info=fanart|true|SetFocus(5292)||5093|info=trakt_comments|true|text||5094|info=movie_keywords|true|SetFocus(5095,0,absolute)||5010|info=crew$VAR[Path_Param_AggregateCrew]|true|info||5030|info=trakt_inlists|true|browse</value>
+        <value condition="String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)">5000|info=cast$VAR[Path_Param_AggregateCast]|true|info$VAR[Path_Recs_Season,||5001|,|true|browse]||5003|info=recommendations|true|info||5004|info=similar|true|info||5091|info=posters|true|SetFocus(5291)||5092|info=fanart|true|SetFocus(5292)||5093|info=trakt_comments|true|text||5010|info=crew$VAR[Path_Param_AggregateCrew]|true|info$VAR[Path_Recs_UpNext,||5011|,|true|play]||5030|info=trakt_inlists|true|browse</value>
     </variable>
 
     <variable name="Path_Recs_Collection">
         <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(ListItem.Set)">info=collection&amp;tmdb_type=collection&amp;query=$WINPROP[Set]</value>
+        <value condition="String.IsEqual(ListItem.DBType,movie) + !String.IsEmpty(Container(99950).ListItem.Set)">info=collection&amp;tmdb_type=collection&amp;query=$WINPROP[Set]</value>
         <value condition="ListItem.IsCollection + !String.IsEmpty(ListItem.Title)">info=collection&amp;tmdb_type=collection&amp;query=$WINPROP[Title]</value>
     </variable>
 
@@ -170,7 +171,6 @@
     </variable>
 
     <variable name="Path_OSD_Episodes">
-        <value condition="VideoPlayer.Content(livetv)">pvr://channels/tv/*</value>
         <value condition="!Integer.IsEqual(VideoPlayer.PlaylistLength,1) + !Integer.IsEqual(VideoPlayer.PlaylistLength,0)">playlistvideo://?reload=$INFO[VideoPlayer.Season,,_]$INFO[VideoPlayer.Episode]</value>
         <value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.TvShowDBID) + !String.IsEmpty(VideoPlayer.Season)">videodb://tvshows/titles/$INFO[VideoPlayer.TvShowDBID]/$INFO[VideoPlayer.Season]/?tvshowid=$INFO[VideoPlayer.TvShowDBID]</value>
         <value condition="VideoPlayer.Content(episodes)">plugin://plugin.video.themoviedb.helper/?info=episodes&amp;type=tv$INFO[VideoPlayer.TVShowTitle,&amp;query=,]$INFO[VideoPlayer.Season,&amp;season=,]$VAR[Path_Param_Widget]</value>
@@ -239,6 +239,19 @@
         <value condition="String.IsEqual(ListItem.DBType,season)">tv</value>
         <value condition="String.IsEqual(ListItem.DBType,episode)">tv</value>
         <value condition="String.IsEqual(ListItem.DBType,movie)">movie</value>
+    </variable>
+
+    <variable name="Path_ContextParams_Query">
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_tvshowtitle))">$INFO[Container(99950).ListItem.Property(base_tvshowtitle)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_Title))">$INFO[Container(99950).ListItem.Property(base_Title)]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_label))">$INFO[Container(99950).ListItem.Property(base_label)]</value>
+    </variable>
+
+    <variable name="Path_ContextParams_TMDbType">
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),tvshow)">tv</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),season)">tv</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),episode)">tv</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),movie)">movie</value>
     </variable>
 
 </includes>

@@ -33,6 +33,12 @@
             <style>bold</style>
         </font>
         <font>
+            <name>font_midilabel</name>
+            <filename>RobotoCondensed-Bold.ttf</filename>
+            <size>36</size>
+            <style>bold</style>
+        </font>
+        <font>
             <name>font_menulabel</name>
             <filename>RobotoCondensed-Bold.ttf</filename>
             <size>32</size>
@@ -107,14 +113,6 @@
             <size>27</size>
         </font>
 
-        <!-- Default Side Button Font -->
-        <font>
-            <name>font_button</name>
-            <style>uppercase</style>
-            <filename>RobotoCondensed-Regular.ttf</filename>
-            <size>24</size>
-        </font>
-
         <!-- Font for FPS codec flag -->
         <font>
             <name>font_fps</name>
@@ -126,18 +124,6 @@
             <filename>Nick-Titling.ttf</filename>
             <size>22</size>
         </font>
-        <font>
-            <name>font_videocodec_top</name>
-            <style>uppercase bold</style>
-            <filename>RobotoCondensed-Bold.ttf</filename>
-            <size>19</size>
-        </font>
-        <font>
-            <name>font_videocodec_bottom</name>
-            <style>uppercase</style>
-            <filename>RobotoCondensed-Regular.ttf</filename>
-            <size>19</size>
-        </font>
 
         <!-- Font for osd language button text -->
         <font>
@@ -145,14 +131,6 @@
             <filename>RobotoCondensed-Regular.ttf</filename>
             <size>14</size>
             <linespacing>1.2</linespacing>
-        </font>
-
-        <!-- PVR EPG Genre Label -->
-        <font>
-            <name>font_genrelabel</name>
-            <filename>RobotoCondensed-Bold.ttf</filename>
-            <size>20</size>
-            <style>uppercase</style>
         </font>
 
         <!-- Dialog Hint Label -->
@@ -264,6 +242,12 @@
             <style>bold</style>
         </font>
         <font>
+            <name>font_midilabel</name>
+            <filename>RobotoNotoCondensed-Bold.ttf</filename>
+            <size>36</size>
+            <style>bold</style>
+        </font>
+        <font>
             <name>font_menulabel</name>
             <filename>RobotoNotoCondensed-Bold.ttf</filename>
             <size>32</size>
@@ -338,14 +322,6 @@
             <size>27</size>
         </font>
 
-        <!-- Default Side Button Font -->
-        <font>
-            <name>font_button</name>
-            <style>uppercase</style>
-            <filename>RobotoNotoCondensed-Regular.ttf</filename>
-            <size>24</size>
-        </font>
-
         <!-- Font for FPS codec flag -->
         <font>
             <name>font_fps</name>
@@ -357,18 +333,6 @@
             <filename>Nick-Titling.ttf</filename>
             <size>22</size>
         </font>
-        <font>
-            <name>font_videocodec_top</name>
-            <style>uppercase bold</style>
-            <filename>RobotoCondensed-Bold.ttf</filename>
-            <size>19</size>
-        </font>
-        <font>
-            <name>font_videocodec_bottom</name>
-            <style>uppercase</style>
-            <filename>RobotoCondensed-Regular.ttf</filename>
-            <size>19</size>
-        </font>
 
         <!-- Font for osd language button text -->
         <font>
@@ -376,14 +340,6 @@
             <filename>RobotoNotoCondensed-Regular.ttf</filename>
             <size>14</size>
             <linespacing>1.2</linespacing>
-        </font>
-
-        <!-- PVR EPG Genre Label -->
-        <font>
-            <name>font_genrelabel</name>
-            <filename>RobotoNotoCondensed-Bold.ttf</filename>
-            <size>20</size>
-            <style>uppercase</style>
         </font>
 
         <!-- Dialog Hint Label -->
@@ -499,6 +455,13 @@
             <style>bold</style>
         </font>
         <font>
+            <name>font_midilabel</name>
+            <filename>RobotoCJKSC-Bold.ttf</filename>
+            <aspect>0.89</aspect>
+            <size>36</size>
+            <style>bold</style>
+        </font>
+        <font>
             <name>font_menulabel</name>
             <filename>RobotoCJKSC-Bold.ttf</filename>
             <aspect>0.89</aspect>
@@ -586,15 +549,6 @@
             <size>27</size>
         </font>
 
-        <!-- Default Side Button Font -->
-        <font>
-            <name>font_button</name>
-            <style>uppercase</style>
-            <filename>RobotoCJKSC-Regular.ttf</filename>
-            <aspect>0.89</aspect>
-            <size>24</size>
-        </font>
-
         <!-- Font for FPS codec flag -->
         <font>
             <name>font_fps</name>
@@ -606,18 +560,6 @@
             <filename>Nick-Titling.ttf</filename>
             <size>22</size>
         </font>
-        <font>
-            <name>font_videocodec_top</name>
-            <style>uppercase bold</style>
-            <filename>RobotoCondensed-Bold.ttf</filename>
-            <size>19</size>
-        </font>
-        <font>
-            <name>font_videocodec_bottom</name>
-            <style>uppercase</style>
-            <filename>RobotoCondensed-Regular.ttf</filename>
-            <size>19</size>
-        </font>
 
         <!-- Font for osd language button text -->
         <font>
@@ -626,15 +568,6 @@
             <aspect>0.89</aspect>
             <size>14</size>
             <linespacing>1.2</linespacing>
-        </font>
-
-        <!-- PVR EPG Genre Label -->
-        <font>
-            <name>font_genrelabel</name>
-            <filename>RobotoCJKSC-Bold.ttf</filename>
-            <aspect>0.89</aspect>
-            <size>20</size>
-            <style>uppercase</style>
         </font>
 
         <!-- Dialog Hint Label -->

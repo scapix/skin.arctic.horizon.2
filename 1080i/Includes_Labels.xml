@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
+
+    <variable name="Label_Set">
+        <value condition="!String.IsEmpty(ListItem.Set)">$INFO[ListItem.Set]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Set)">$INFO[Container(99950).ListItem.Set]</value>
+    </variable>
+
+    <variable name="Label_Studio">
+        <value condition="!String.IsEmpty(ListItem.Studio)">$INFO[ListItem.Studio]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Studio)">$INFO[Container(99950).ListItem.Studio]</value>
+    </variable>
+
+    <variable name="Label_Country">
+        <value condition="!String.IsEmpty(ListItem.Country)">$INFO[ListItem.Country]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Country)">$INFO[Container(99950).ListItem.Country]</value>
+    </variable>
+
+    <variable name="Label_Genre">
+        <value condition="!String.IsEmpty(ListItem.Genre)">$INFO[ListItem.Genre]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Genre)">$INFO[Container(99950).ListItem.Genre]</value>
+    </variable>
+
+    <variable name="Label_Tagline">
+        <value condition="!String.IsEmpty(ListItem.Tagline)">$INFO[ListItem.Tagline]</value>
+        <value condition="!String.IsEmpty(Container(99950).ListItem.Tagline)">$INFO[Container(99950).ListItem.Tagline]</value>
+    </variable>
+
     <variable name="Label_OSD_CastMember_Bio">
         <value condition="!String.IsEmpty(Container(6501).ListItem.Property(biography))">$INFO[Container(6501).ListItem.Property(biography)]</value>
         <value condition="!String.IsEmpty(Container(6502).ListItem.Property(biography)) + String.IsEqual(Container(6501).ListItem.Label,Container(6502).ListItem.Label)">$INFO[Container(6502).ListItem.Property(biography)]</value>
@@ -7,7 +33,7 @@
         <value>$LOCALIZE[19055]</value>
     </variable>
     <variable name="Label_OSD_HintText">
-        <value condition="Control.HasFocus(6500)">$LOCALIZE[31293]</value>
+        <value condition="Control.HasFocus(6100)">$LOCALIZE[31293]</value>
         <value condition="Control.HasFocus(6501)">$LOCALIZE[31298]</value>
         <value condition="VideoPlayer.Content(livetv)">$LOCALIZE[31295]</value>
         <value condition="!Integer.IsEqual(Container(6401).NumItems,0) + !Control.HasFocus(6401)">$LOCALIZE[31296]</value>
@@ -31,18 +57,22 @@
         <value condition="!String.IsEmpty(ListItem.Label)">$INFO[ListItem.Label]</value>
         <value>UNK</value>
     </variable>
-    <variable name="Label_Landscape_Plain">
+    <!-- <variable name="Label_Landscape_Plain">
         <value condition="!String.IsEmpty(ListItem.TvShowTitle) + !String.IsEqual(ListItem.Label,ListItem.TVShowTitle) + !String.IsEqual(ListItem.DBType,tvshow) + $EXP[Exp_WidgetWindow]" />
         <value condition="$EXP[Exp_IsPVRItem] + !String.IsEmpty(ListItem.Title)" />
         <value>$INFO[ListItem.Label]</value>
-    </variable>
+    </variable> -->
     <variable name="Label_Landscape_Upper">
-        <value condition="!String.IsEmpty(ListItem.TvShowTitle) + !String.IsEqual(ListItem.Label,ListItem.TVShowTitle) + !String.IsEqual(ListItem.DBType,tvshow) + $EXP[Exp_WidgetWindow]">$INFO[ListItem.Label]</value>
+        <!-- <value condition="!String.IsEmpty(ListItem.TvShowTitle) + !String.IsEqual(ListItem.Label,ListItem.TVShowTitle) + !String.IsEqual(ListItem.DBType,tvshow) + $EXP[Exp_WidgetWindow]">$INFO[ListItem.Label]</value> -->
         <value condition="$EXP[Exp_IsPVRItem] + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.ChannelName]</value>
+        <value>$INFO[ListItem.Label]</value>
     </variable>
     <variable name="Label_Landscape_Lower">
-        <value condition="!String.IsEmpty(ListItem.TvShowTitle) + !String.IsEqual(ListItem.Label,ListItem.TVShowTitle) + !String.IsEqual(ListItem.DBType,tvshow) + $EXP[Exp_WidgetWindow]">$INFO[ListItem.TvShowTitle]</value>
+        <!-- <value condition="!String.IsEmpty(ListItem.TvShowTitle) + !String.IsEqual(ListItem.Label,ListItem.TVShowTitle) + !String.IsEqual(ListItem.DBType,tvshow) + $EXP[Exp_WidgetWindow]">$INFO[ListItem.TvShowTitle]</value> -->
         <value condition="$EXP[Exp_IsPVRItem] + !String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+        <value condition="!String.IsEmpty(ListItem.TvShowTitle) + !String.IsEqual(ListItem.Title,ListItem.TVShowTitle) + !String.IsEqual(ListItem.DBType,tvshow)">$INFO[ListItem.TvShowTitle]</value>
+        <value condition="!String.IsEmpty(ListItem.Genre)">$INFO[ListItem.Genre]</value>
+        <value condition="!String.IsEmpty(ListItem.Premiered)">$INFO[ListItem.Premiered]</value>
     </variable>
 
     <variable name="Label_Setting_HomeMenuUp">
@@ -79,6 +109,11 @@
     <variable name="Label_Playlist_Title">
         <value condition="String.IsEqual(ListItem.DBType,artist)">$INFO[ListItem.Artist]</value>
         <value>$INFO[ListItem.Title]</value>
+    </variable>
+
+    <variable name="Label_TitleLabel">
+        <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+        <value>$INFO[ListItem.Label]</value>
     </variable>
 
     <variable name="Label_Playlist_Sublabel">
