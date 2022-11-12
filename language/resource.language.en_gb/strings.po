@@ -1684,3 +1684,43 @@ msgstr ""
 msgctxt "#31334"
 msgid "Comments"
 msgstr ""
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31335"
+msgid "Thin selectbox"
+msgstr ""
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31336"
+msgid "Selectbox style"
+msgstr ""
+
+#: /1080i/Includes_Labels.xml
+msgctxt "#31337"
+msgid "Thin"
+msgstr ""
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31338"
+msgid "Filename source icons"
+msgstr ""
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31339"
+msgid "Focus buttons when opening info dialog"
+msgstr ""
+
+#: /1080i/Custom_1112_Backgrounds.xml
+msgctxt "#31340"
+msgid "Wrap long titles"
+msgstr ""
+
+#: /1080i/Includes_DialogInfo.xml
+msgctxt "#31341"
+msgid "Screenplay by"
+msgstr ""
+
+#: /1080i/Includes_Views_Combined.xml
+msgctxt "#31342"
+msgid "Media Info Combined"
+msgstr ""
