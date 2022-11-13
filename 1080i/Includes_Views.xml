@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
     <include name="View_MediaWindows_ID">
-        <views>50,500,501,502,504,507,508,51,510,511,512,514,517,52,520,522,524,540,550,558,552,57,570,572,574,58,580,590</views>
+        <views>50,500,501,502,504,507,508,51,510,511,512,514,517,52,520,521,522,524,527,540,550,558,552,57,570,572,574,58,580,581,590</views>
     </include>
 
     <include name="View_Furniture_Top">
@@ -231,6 +231,7 @@
 
     <include name="View_Main_MyPlaylist">
         <control type="group">
+            <visible>Control.IsVisible(50)</visible>
             <include>Animation_Foreground_SlideUp</include>
 
             <include content="View_List_NewTemplate">
@@ -252,7 +253,7 @@
             </include>
 
             <control type="group">
-                <visible>Control.IsVisible(50)</visible>
+                <visible>String.IsEqual(Container(50).ListItem.DBType,song)</visible>
                 <width>infodialog_left_w</width>
                 <include>DialogInfo_MusicArt</include>
                 <include content="Object_BigPoster">
@@ -261,6 +262,18 @@
                     <top>view_top</top>
                     <width>infodialog_poster_w</width>
                     <height>infodialog_poster_w</height>
+                </include>
+            </control>
+
+            <control type="group">
+                <visible>!String.IsEqual(Container(50).ListItem.DBType,song)</visible>
+                <width>infodialog_left_w</width>
+                <include content="Object_BigPoster">
+                    <param name="diffuse">diffuse/poster_w460_h680.png</param>
+                    <centerleft>50%</centerleft>
+                    <top>view_top</top>
+                    <width>infodialog_poster_w</width>
+                    <height>infodialog_poster_h</height>
                 </include>
             </control>
 
