@@ -10,20 +10,20 @@
                 <width>info_plot_w</width>
                 <control type="textbox" id="99991">
                     <aligny>top</aligny>
-                    <height>160</height>
+                    <height>200</height>
                     <label>$PARAM[label]</label>
                     <font>$PARAM[font]</font>
                 </control>
                 <control type="textbox" id="99992">
                     <aligny>top</aligny>
-                    <height>140</height>
+                    <height>160</height>
                     <label>$PARAM[label]</label>
                     <font>$PARAM[font]_doublerow</font>
                     <width>50%</width>
                 </control>
                 <control type="textbox" id="99993">
                     <aligny>top</aligny>
-                    <height>140</height>
+                    <height>160</height>
                     <label>$PARAM[label]</label>
                     <font>$PARAM[font]_doublerow</font>
                     <width>70%</width>
@@ -33,11 +33,11 @@
     </include>
 
     <include name="Info_Title_Label_Hidden">
-        <include content="_Info_Title_Label_Hidden" condition="!Skin.HasSetting(UseLightFont) + !Skin.HasSetting(Titles.DisableWrapping)">
+        <include content="_Info_Title_Label_Hidden" condition="!Skin.HasSetting(UseLightFont) + Skin.HasSetting(Titles.EnableWrapping)">
             <param name="font">font_info_black</param>
             <param name="label">$PARAM[label]</param>
         </include>
-        <include content="_Info_Title_Label_Hidden" condition="Skin.HasSetting(UseLightFont) + !Skin.HasSetting(Titles.DisableWrapping)">
+        <include content="_Info_Title_Label_Hidden" condition="Skin.HasSetting(UseLightFont) + Skin.HasSetting(Titles.EnableWrapping)">
             <param name="font">font_info_light</param>
             <param name="label">$PARAM[label]</param>
         </include>
@@ -120,25 +120,25 @@
     </include>
 
     <include name="Info_Title_Label">
-        <include content="_Info_Title_Label" condition="!Skin.HasSetting(UseLightFont) + !Skin.HasSetting(Titles.DisableWrapping)">
+        <include content="_Info_Title_Label" condition="!Skin.HasSetting(UseLightFont) + Skin.HasSetting(Titles.EnableWrapping)">
             <param name="font">font_info_black</param>
             <param name="colordiffuse">$PARAM[colordiffuse]</param>
             <param name="label">$PARAM[label]</param>
             <nested />
         </include>
-        <include content="_Info_Title_Label" condition="Skin.HasSetting(UseLightFont) + !Skin.HasSetting(Titles.DisableWrapping)">
+        <include content="_Info_Title_Label" condition="Skin.HasSetting(UseLightFont) + Skin.HasSetting(Titles.EnableWrapping)">
             <param name="font">font_info_light</param>
             <param name="colordiffuse">$PARAM[colordiffuse]</param>
             <param name="label">$PARAM[label]</param>
             <nested />
         </include>
-        <include content="_Info_Title_Label_NoWrap" condition="!Skin.HasSetting(UseLightFont) + Skin.HasSetting(Titles.DisableWrapping)">
+        <include content="_Info_Title_Label_NoWrap" condition="!Skin.HasSetting(UseLightFont) + !Skin.HasSetting(Titles.EnableWrapping)">
             <param name="font">font_info_black</param>
             <param name="colordiffuse">$PARAM[colordiffuse]</param>
             <param name="label">$PARAM[label]</param>
             <nested />
         </include>
-        <include content="_Info_Title_Label_NoWrap" condition="Skin.HasSetting(UseLightFont) + Skin.HasSetting(Titles.DisableWrapping)">
+        <include content="_Info_Title_Label_NoWrap" condition="Skin.HasSetting(UseLightFont) + !Skin.HasSetting(Titles.EnableWrapping)">
             <param name="font">font_info_light</param>
             <param name="colordiffuse">$PARAM[colordiffuse]</param>
             <param name="label">$PARAM[label]</param>

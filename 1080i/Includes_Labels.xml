@@ -7,6 +7,7 @@
     </variable>
 
     <variable name="Label_Setting_SelectboxStyle">
+        <value condition="Skin.HasSetting(SelectBox.Glow)">$LOCALIZE[31347]</value>
         <value condition="Skin.HasSetting(SelectBox.Thin)">$LOCALIZE[31337]</value>
         <value>$LOCALIZE[739]</value>
     </variable>
@@ -55,9 +56,10 @@
     <variable name="Label_OSD_HintText">
         <value condition="ControlGroup(6001).HasFocus()">$LOCALIZE[31293]</value>
         <value condition="Control.HasFocus(6501)">$LOCALIZE[31298]</value>
-        <value condition="VideoPlayer.Content(livetv)">$LOCALIZE[31295]</value>
-        <value condition="!Integer.IsEqual(Container(6401).NumItems,0) + !Control.HasFocus(6401)">$LOCALIZE[31296]</value>
-        <value condition="ControlGroup(6000).HasFocus()">$LOCALIZE[31294]</value>
+        <value condition="VideoPlayer.Content(livetv) + !Control.HasFocus(6401) + !Integer.IsEqual(Container(6401).NumItems,0)">$LOCALIZE[31295]</value>
+        <value condition="VideoPlayer.Content(livetv)">$LOCALIZE[31348]</value>
+        <value condition="ControlGroup(6000).HasFocus() + !Integer.IsEqual(Container(6401).NumItems,0)">$LOCALIZE[31296]</value>
+        <value condition="ControlGroup(6000).HasFocus() | Control.HasFocus(6401)">$LOCALIZE[31294]</value>
     </variable>
     <variable name="Label_HomeHeader">
         <value condition="!String.IsEmpty(Window(Home).Property(Slide.WidgetTitle))">$INFO[Window(Home).Property(Slide.WidgetTitle)]</value>
@@ -112,6 +114,11 @@
         <value>$LOCALIZE[208]</value>
     </variable>
 
+    <variable name="Label_FullscreenWidget_InfoButton">
+        <value condition="Skin.HasSetting(Widgets.FullScreenContext)">$LOCALIZE[33063]</value>
+        <value>$LOCALIZE[31077]</value>
+    </variable>
+
     <variable name="Label_VideoInfo_PlayButton">
         <value condition="$EXP[Exp_InfoDialog_IsFolder]">$LOCALIZE[1024]</value>
         <value>$LOCALIZE[208]</value>
@@ -128,8 +135,9 @@
     </variable>
 
     <variable name="Label_Playlist_Title">
-        <value condition="String.IsEqual(ListItem.DBType,artist)">$INFO[ListItem.Artist]</value>
-        <value>$INFO[ListItem.Title]</value>
+        <value condition="String.IsEqual(ListItem.DBType,artist) + !String.IsEmpty(ListItem.Artist)">$INFO[ListItem.Artist]</value>
+        <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
+        <value>$INFO[ListItem.Label]</value>
     </variable>
 
     <variable name="Label_TitleLabel">
@@ -143,6 +151,10 @@
         <value condition="!String.IsEmpty(ListItem.Album)">$INFO[ListItem.Album]$INFO[ListItem.Year, • ,]</value>
         <value condition="!String.IsEmpty(ListItem.TVShowTitle)">$INFO[ListItem.Season,S,]$INFO[ListItem.Episode,E, • ]$INFO[ListItem.TVShowTitle]</value>
         <value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director]$INFO[ListItem.Year, • ,]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(sublabel))">$INFO[ListItem.Property(sublabel)]</value>
+        <value condition="ListItem.IsFolder">$INFO[ListItem.FolderPath]</value>
+        <value condition="!String.IsEmpty(ListItem.FileNameAndPath)">$INFO[ListItem.FileNameAndPath]</value>
+        <value condition="!String.IsEmpty(ListItem.FolderPath)">$INFO[ListItem.FolderPath]</value>
     </variable>
 
     <variable name="Label_PVRRecordings_Sublabel">
