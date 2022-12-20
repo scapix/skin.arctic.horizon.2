@@ -114,7 +114,9 @@
         <definition>
             <control type="image">
                 <include content="Dimension_Padding"><param name="pad" value="$PARAM[pad]" /></include>
-                <texture border="52">special://profile/addon_data/script.texturemaker/ArcticHorizon/glow_$PARAM[affix].png</texture>
+                <include content="Texture_Glow_Highlight">
+                    <param name="affix">$PARAM[affix]</param>
+                </include>
                 <nested />
             </control>
         </definition>
@@ -1125,11 +1127,13 @@
         <param name="useanimation" default="true" />
         <param name="nib_pos" default="70" />
         <param name="wraparound" default="true" />
-        <param name="usemousefocus" default="false" />
+        <param name="use_mouse_focus" default="false" />
         <param name="action_include" default="Action_OptionsMenu_Default" />
+        <param name="use_side_nib">false</param>
+        <param name="has_nib">true</param>
         <definition>
             <control type="group">
-                <include content="Object_Control" condition="$PARAM[usemousefocus]">
+                <include content="Object_Control" condition="$PARAM[use_mouse_focus]">
                     <param name="control">button</param>
                     <param name="id">$PARAM[groupid]</param>
                     <texturenofocus />
@@ -1178,8 +1182,9 @@
                     <include>Texture_Shadow_20</include>
                     <include>Texture_Dialog</include>
                 </include>
-                <include content="Dialog_Nib">
+                <include content="Dialog_Nib" condition="$PARAM[has_nib]">
                     <param name="nib_pos">$PARAM[nib_pos]</param>
+                    <param name="use_side_nib">$PARAM[use_side_nib]</param>
                 </include>
 
                 <control type="image">
@@ -1220,7 +1225,7 @@
                 <include condition="$PARAM[useanimation]">Animation_SlideIn_Dialog</include>
                 <include condition="$PARAM[useanimation] + !$PARAM[isbuttonmenu]">Animation_FadeOut</include>
                 <include content="Object_Visible" condition="$PARAM[useanimation]">
-                    <param name="visible">[$PARAM[visible]] + [[ControlGroup($PARAM[id]).HasFocus() + $PARAM[usegrouplist]] | [Control.HasFocus($PARAM[id]) + !$PARAM[usegrouplist]] | $PARAM[isfocused] | [Control.HasFocus($PARAM[groupid]) + [$PARAM[usemousefocus]]]]</param>
+                    <param name="visible">[$PARAM[visible]] + [[ControlGroup($PARAM[id]).HasFocus() + $PARAM[usegrouplist]] | [Control.HasFocus($PARAM[id]) + !$PARAM[usegrouplist]] | $PARAM[isfocused] | [Control.HasFocus($PARAM[groupid]) + [$PARAM[use_mouse_focus]]]]</param>
                 </include>
                 <width>$PARAM[width]</width>
                 <height>860</height>
@@ -1235,7 +1240,7 @@
         <param name="header" default="$LOCALIZE[33063]" />
         <param name="id" default="9000" />
         <param name="groupid" default="89000" />
-        <param name="usemousefocus" default="false" />
+        <param name="use_mouse_focus" default="false" />
         <param name="onback" default="50" />
         <param name="width" default="optionsmenu_w" />
         <param name="usegrouplist" default="true" />
@@ -1243,47 +1248,53 @@
         <param name="iscontextmenu" default="false" />
         <param name="isbuttonmenu" default="false" />
         <param name="isfocused" default="false" />
-        <param name="hasbuttonoverlay" default="true" />
+        <param name="has_button_overlay" default="true" />
         <param name="has_background_overlay">true</param>
+        <param name="use_side_nib">false</param>
         <definition>
             <include content="Object_Control">
                 <param name="control" value="group" />
-                <visible>[ControlGroup($PARAM[id]).HasFocus() + $PARAM[usegrouplist]] | [Control.HasFocus($PARAM[id]) + !$PARAM[usegrouplist]] | $PARAM[isfocused] | [Control.HasFocus($PARAM[groupid]) + [$PARAM[usemousefocus]]]</visible>
+                <visible>[ControlGroup($PARAM[id]).HasFocus() + $PARAM[usegrouplist]] | [Control.HasFocus($PARAM[id]) + !$PARAM[usegrouplist]] | $PARAM[isfocused] | [Control.HasFocus($PARAM[groupid]) + [$PARAM[use_mouse_focus]]]</visible>
                 <include>Animation_FadeIn</include>
                 <include condition="!$PARAM[isbuttonmenu]">Animation_FadeOut</include>
                 <include content="Object_Overlay" condition="$PARAM[has_background_overlay]">
                     <param name="windowanimation" value="false" />
                 </include>
-                <include content="Object_Control" condition="$PARAM[hasbuttonoverlay]">
-                    <param name="control" value="group" />
+                <include content="Furniture_MenuButton" condition="$PARAM[has_button_overlay] + ![$PARAM[use_side_nib]]">
+                    <param name="icon" value="$PARAM[menuicon]" />
                     <visible>!Window.IsVisible(DialogBusy.xml)</visible>
                     <visible>!Window.IsVisible(DialogExtendedProgressBar.xml)</visible>
                     <visible>!Window.IsVisible(DialogNotification.xml)</visible>
                     <visible>!Window.IsVisible(DialogVolumeBar.xml) | Player.Muted</visible>
-                    <include content="Furniture_MenuButton">
-                        <param name="icon" value="$PARAM[menuicon]" />
-                    </include>
+                </include>
+                <include content="Object_MenuButton" condition="$PARAM[has_button_overlay] + $PARAM[use_side_nib]">
+                    <param name="profileimage">$EXP[Exp_HasProfileImage]</param>
+                    <centerleft>$PARAM[side_button_centerleft]</centerleft>
+                    <centertop>$PARAM[side_button_centertop]</centertop>
+                    <height>60</height>
                 </include>
                 <visible>$PARAM[visible]</visible>
             </include>
             <include content="Object_Options_Menu_Popup">
-                <param name="icon" value="$PARAM[icon]" />
-                <param name="header" value="$PARAM[header]" />
-                <param name="id" value="$PARAM[id]" />
-                <param name="groupid" value="$PARAM[groupid]" />
-                <param name="onback" value="$PARAM[onback]" />
-                <param name="width" value="$PARAM[width]" />
-                <param name="usegrouplist" value="$PARAM[usegrouplist]" />
-                <param name="visible" value="$PARAM[visible]" />
-                <param name="iscontextmenu" value="$PARAM[iscontextmenu]" />
-                <param name="isbuttonmenu" value="$PARAM[isbuttonmenu]" />
-                <param name="isfocused" value="$PARAM[isfocused]" />
-                <param name="grouplist_items" value="$PARAM[grouplist_items]" />
-                <param name="nib_pos" value="$PARAM[nib_pos]" />
-                <param name="useanimation" value="$PARAM[useanimation]" />
-                <param name="wraparound" value="$PARAM[wraparound]" />
-                <param name="usemousefocus" value="$PARAM[usemousefocus]" />
-                <param name="action_include" value="$PARAM[action_include]" />
+                <param name="icon">$PARAM[icon]</param>
+                <param name="header">$PARAM[header]</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="groupid">$PARAM[groupid]</param>
+                <param name="onback">$PARAM[onback]</param>
+                <param name="width">$PARAM[width]</param>
+                <param name="usegrouplist">$PARAM[usegrouplist]</param>
+                <param name="visible">$PARAM[visible]</param>
+                <param name="iscontextmenu">$PARAM[iscontextmenu]</param>
+                <param name="isbuttonmenu">$PARAM[isbuttonmenu]</param>
+                <param name="isfocused">$PARAM[isfocused]</param>
+                <param name="grouplist_items">$PARAM[grouplist_items]</param>
+                <param name="nib_pos">$PARAM[nib_pos]</param>
+                <param name="has_nib">$PARAM[has_nib]</param>
+                <param name="use_side_nib">$PARAM[use_side_nib]</param>
+                <param name="useanimation">$PARAM[useanimation]</param>
+                <param name="wraparound">$PARAM[wraparound]</param>
+                <param name="use_mouse_focus">$PARAM[use_mouse_focus]</param>
+                <param name="action_include">$PARAM[action_include]</param>
                 <nested />
             </include>
 
@@ -1296,7 +1307,7 @@
         <param name="visible" default="true" />
         <definition>
             <include content="_Object_MenuBar_Item">
-                <param name="fo_texture" value="Texture_Circle_Highlight_H" />
+                <param name="fo_texture" value="Texture_MainMenu_Highlight_H" />
                 <param name="nf_texture" value="common/menumain.png" />
                 <param name="sh_texture" value="shadows/menu_shadow.png" />
                 <param name="selected" value="$PARAM[selected]" />
@@ -1861,14 +1872,13 @@
                 <include condition="$PARAM[focusbounce]">Animation_FocusBounce</include>
                 <include content="Object_Control">
                     <param name="control" value="group" />
-                    <include content="Dimension_Padding" condition="!Skin.HasSetting(SelectBox.Thin) | Skin.HasSetting(SelectBox.Inner)"><param name="pad">-8</param></include>
-                    <include content="Dimension_Padding" condition="Skin.HasSetting(SelectBox.Thin) + !Skin.HasSetting(SelectBox.Inner)"><param name="pad">-3</param></include>
+                    <include content="Dimension_Padding" condition="!Skin.HasSetting(SelectBox.Thin)"><param name="pad">-8</param></include>
+                    <include content="Dimension_Padding" condition="Skin.HasSetting(SelectBox.Thin)"><param name="pad">-3</param></include>
                     <include condition="$PARAM[shadow] + !Skin.HasSetting(SelectBox.Glow)">Object_Shadow_40</include>
                     <include condition="$PARAM[shadow] + Skin.HasSetting(SelectBox.Glow)">Object_Glow_40</include>
                     <control type="image">
-                        <include condition="!Skin.HasSetting(SelectBox.Thin) + !Skin.HasSetting(SelectBox.Inner)">Texture_SelectBox</include>
-                        <include condition="Skin.HasSetting(SelectBox.Thin) + !Skin.HasSetting(SelectBox.Inner)">Texture_SelectBox_Thin</include>
-                        <include condition="Skin.HasSetting(SelectBox.Thin) + Skin.HasSetting(SelectBox.Inner)">Texture_SelectBox_Inner</include>
+                        <include condition="!Skin.HasSetting(SelectBox.Thin)">Texture_SelectBox</include>
+                        <include condition="Skin.HasSetting(SelectBox.Thin)">Texture_SelectBox_Thin</include>
                     </control>
                 </include>
                 <include content="Object_Indicator" condition="$PARAM[indicator]">

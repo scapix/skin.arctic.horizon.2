@@ -2,6 +2,7 @@
 <window>
     <defaultcontrol>300</defaultcontrol>
     <include>Action_Blur_Onload</include>
+    <onload>RunScript(plugin.video.themoviedb.helper,kodi_setting=myvideos.selectaction,property=KodiSetting.DefaultSelectAction)</onload>
     <onload>Skin.SetString(TMDbHelper.MonitorContainer,99950)</onload>
     <onload>ClearProperty(TMDbHelper.HideView,Home)</onload>
     <onload>SetProperty(TMDbHelper.WidgetContainer,301)</onload>
@@ -185,7 +186,7 @@
             <param name="visible" value="!Window.IsVisible(DialogSelect.xml) + !Window.IsVisible(favourites)" />
             <param name="onback" value="300" />
             <param name="id" value="302" />
-            <param name="hasbuttonoverlay" value="false" />
+            <param name="has_button_overlay" value="false" />
             <param name="usegrouplist" value="false" />
             <param name="nib_pos" value="420" />
             <param name="useanimation" value="false" />

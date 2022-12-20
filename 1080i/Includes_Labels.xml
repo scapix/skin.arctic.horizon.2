@@ -9,6 +9,16 @@
         <value condition="ControlGroup(6001).HasFocus()">$LOCALIZE[31293]</value>
     </variable>
 
+    <variable name="Label_Setting_Expanded">
+        <value condition="Skin.HasSetting(Widgets.ExpandedHeader)">$LOCALIZE[35232]</value>
+        <value>$LOCALIZE[31107]</value>
+    </variable>
+
+    <variable name="Label_Setting_MenuStyle">
+        <value condition="Skin.HasSetting(Home.IconicMenu)">$LOCALIZE[536]</value>
+        <value>$LOCALIZE[31051]</value>
+    </variable>
+
     <variable name="Label_Library_Collections">
         <value condition="String.IsEqual(ListItem.DBType,tvshow)">$LOCALIZE[33054]</value>
         <value>$LOCALIZE[31108]</value>
@@ -128,11 +138,13 @@
     </variable>
 
     <variable name="Label_FullscreenWidget_PlayButton">
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.KodiSetting.DefaultSelectAction),$NUMBER[3])">$LOCALIZE[31077]</value>
         <value condition="Container(301).ListItem.IsFolder">$LOCALIZE[1024]</value>
         <value>$LOCALIZE[208]</value>
     </variable>
 
     <variable name="Label_FullscreenWidget_InfoButton">
+        <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.KodiSetting.DefaultSelectAction),$NUMBER[3])">$LOCALIZE[33063]</value>
         <value condition="Skin.HasSetting(Widgets.FullScreenContext)">$LOCALIZE[33063]</value>
         <value>$LOCALIZE[31077]</value>
     </variable>
