@@ -317,7 +317,10 @@
                 <preloaditems>0</preloaditems>
                 <focusposition>1</focusposition>
                 <movement>2</movement>
-                <animation effect="slide" start="0" end="0,-120" condition="Integer.IsLess(Container(9801).NumItems,3)">Conditional</animation>
+                <include content="Animation_Reposition">
+                    <param name="id">9801</param>
+                    <param name="slide_y">-grid_x12</param>
+                </include>
                 <animation effect="fade" start="100" end="0" condition="Container(9801).IsUpdating">Conditional</animation>
                 <content>
                     <item>
@@ -420,7 +423,7 @@
                 <content target="videos">$VAR[Path_CollectionNode_Content]</content>
                 <onleft>9801</onleft>
                 <left>520</left>
-                <right>-620</right>
+                <right>-600</right>
                 <top>220</top>
                 <bottom>-40</bottom>
                 <visible>!Container.IsUpdating(9801) + [Container(9801).ListItem.IsFolder | !String.IsEmpty(Container(9801).ListItem.Property(folderpath))]</visible>
@@ -428,8 +431,11 @@
                 <focusposition>1</focusposition>
                 <movement>1</movement>
                 <onclick>Dialog.Close(12003)</onclick>
-                <onclick>PlayMedia($INFO[Container(9802).ListItem.FileNameAndPath])</onclick>
-                <animation effect="slide" start="0" end="0,-160" condition="Integer.IsLess(Container(9802).NumItems,3)">Conditional</animation>
+                <onclick>PlayMedia($ESCINFO[Container(9802).ListItem.FileNameAndPath])</onclick>
+                <include content="Animation_Reposition">
+                    <param name="id">9802</param>
+                    <param name="slide_y">-grid_x16</param>
+                </include>
             </include>
             <control type="group">
                 <left>540</left>

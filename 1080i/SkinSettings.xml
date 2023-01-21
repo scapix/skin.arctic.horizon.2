@@ -2,7 +2,7 @@
 <window>
     <defaultcontrol always="true">30001</defaultcontrol>
     <onload>RunScript(plugin.video.themoviedb.helper,kodi_setting=myvideos.selectaction,property=KodiSetting.DefaultSelectAction)</onload>
-    <onunload>RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;levels=1&amp;group=mainmenu|powermenu|searchmenu)</onunload>
+    <onunload>RunScript(script.skinshortcuts,type=buildxml&amp;mainmenuID=300&amp;levels=5&amp;group=mainmenu|powermenu|searchmenu)</onunload>
     <controls>
         <include content="Background_Main">
             <param name="plain_background">true</param>
@@ -207,6 +207,14 @@
                                 <onclick>ActivateWindow(1118)</onclick>
                                 <label2>$INFO[Skin.String(Startup.ImageFolder)]</label2>
                             </include>
+                            <include content="Dialog_Settings_Button" description="Customise Background">
+                                <param name="id">2011</param>
+                                <label>$LOCALIZE[31361]</label>
+                                <visible>Container(3).HasFocus(2)</visible>
+                                <onclick condition="!String.IsEmpty(Skin.String(Background.Image))">Skin.Reset(Background.Image)</onclick>
+                                <onclick condition="String.IsEmpty(Skin.String(Background.Image))">Skin.SetImage(Background.Image)</onclick>
+                                <label2>$INFO[Skin.String(Background.Image)]</label2>
+                            </include>
                             <include content="Dialog_Settings_Button">
                                 <param name="id">2005</param>
                                 <param name="control" value="button" />
@@ -292,7 +300,8 @@
                                 <visible>Container(3).HasFocus(3)</visible>
                                 <onclick condition="String.IsEmpty(Skin.String(Rows.OnDown))">Skin.SetString(Rows.OnDown,Wall)</onclick>
                                 <onclick condition="String.IsEqual(Skin.String(Rows.OnDown),Wall)">Skin.SetString(Rows.OnDown,Plot)</onclick>
-                                <onclick condition="String.IsEqual(Skin.String(Rows.OnDown),Plot)">Skin.Reset(Rows.OnDown)</onclick>
+                                <onclick condition="String.IsEqual(Skin.String(Rows.OnDown),Plot)">Skin.SetString(Rows.OnDown,Trailer)</onclick>
+                                <onclick condition="String.IsEqual(Skin.String(Rows.OnDown),Trailer)">Skin.Reset(Rows.OnDown)</onclick>
                             </include>
                             <include content="Dialog_Settings_Button">
                                 <param name="id">3004</param>
@@ -754,6 +763,30 @@
                             <include content="Dialog_Settings_Button">
                                 <param name="id">7010</param>
                                 <param name="control" value="radiobutton" />
+                                <label>resource.images.moviecountryicons.maps</label>
+                                <label2>$INFO[System.AddonVersion(resource.images.moviecountryicons.maps),v,       ]</label2>
+                                <visible>Container(3).HasFocus(7)</visible>
+                                <onclick condition="!System.HasAddon(resource.images.moviecountryicons.maps)">InstallAddon(resource.images.moviecountryicons.maps)</onclick>
+                                <onclick condition="!System.AddonIsEnabled(resource.images.moviecountryicons.maps) + System.HasAddon(resource.images.moviecountryicons.maps)">EnableAddon(resource.images.moviecountryicons.maps)</onclick>
+                                <onclick condition="System.AddonIsEnabled(resource.images.moviecountryicons.maps) + System.HasAddon(resource.images.moviecountryicons.maps)">Addon.OpenSettings(resource.images.moviecountryicons.maps)</onclick>
+                                <selected>System.AddonIsEnabled(resource.images.moviecountryicons.maps) + System.HasAddon(resource.images.moviecountryicons.maps)</selected>
+                            </include>
+
+                            <include content="Dialog_Settings_Button">
+                                <param name="id">7011</param>
+                                <param name="control" value="radiobutton" />
+                                <label>resource.images.studios.white</label>
+                                <label2>$INFO[System.AddonVersion(resource.images.studios.white),v,       ]</label2>
+                                <visible>Container(3).HasFocus(7)</visible>
+                                <onclick condition="!System.HasAddon(resource.images.studios.white)">InstallAddon(resource.images.studios.white)</onclick>
+                                <onclick condition="!System.AddonIsEnabled(resource.images.studios.white) + System.HasAddon(resource.images.studios.white)">EnableAddon(resource.images.studios.white)</onclick>
+                                <onclick condition="System.AddonIsEnabled(resource.images.studios.white) + System.HasAddon(resource.images.studios.white)">Addon.OpenSettings(resource.images.studios.white)</onclick>
+                                <selected>System.AddonIsEnabled(resource.images.studios.white) + System.HasAddon(resource.images.studios.white)</selected>
+                            </include>
+
+                            <include content="Dialog_Settings_Button">
+                                <param name="id">7030</param>
+                                <param name="control" value="radiobutton" />
                                 <label>service.upnext</label>
                                 <label2>$INFO[System.AddonVersion(service.upnext),v,       ]</label2>
                                 <visible>Container(3).HasFocus(7)</visible>
@@ -797,7 +830,7 @@
                                 <top>20</top>
                                 <height>500</height>
                                 <autoscroll delay="6000" time="3000" repeat="10000">true</autoscroll>
-                                <label>Thanks to everyone who has submitted a bug report or feature request. In particular, thank-you to those who have contributed PRs for language translations and bugfixes: peat80 Havokdan berkhornet jbelew kcook98765 MoojMidge showkubii peppernair skittles9823 krzysztofwinnik drdirty60 psp2111-ADSLGATE Zurg-97 r-figu alKODIque Kayzels ViewAfterReview ray2301 Dis90. Plus a huge shout-out to drinfernoo for helping setup my repo and all the support over the years.[CR][CR]To all my amazing supporters on Ko-fi, thank-you![CR]Blurayx Anthrax DanielSanchez Leo meesterexx roidy manfeed PizzaPino dolbel Tobby Kagz DrFireStarterBilly Qirat77 Darkmantom TomH richieNZ99 Brambo onlytanmoy reddituser aemstel mash2k3 chopp8 Homeslixe Rimma JacopoV ray2301 stelcodes eengert alKODIque Tee77 Ch3dd4rGoblin silentscreamiong Jshn Ian JP RZ daviddia5 Jathlon77 SteveF George sito1961 devolute[CR][CR]If I've forgotten anyone please let me know!</label>
+                                <label>Thanks to everyone who has submitted a bug report or feature request. In particular, thank-you to those who have contributed PRs for language translations and bugfixes: peat80 Havokdan berkhornet kcook98765 MoojMidge showkubii peppernair skittles9823 krzysztofwinnik drdirty60 psp2111-ADSLGATE Zurg-97 r-figu alKODIque Kayzels ViewAfterReview ray2301 Dis90. Plus a huge shout-out to drinfernoo for helping setup my repo and all the support over the years.[CR][CR]To all my amazing supporters on Ko-fi, thank-you![CR]Blurayx Anthrax DanielSanchez Leo meesterexx roidy manfeed PizzaPino dolbel Tobby Kagz DrFireStarterBilly Qirat77 Darkmantom TomH richieNZ99 Brambo onlytanmoy reddituser aemstel mash2k3 chopp8 Homeslixe Rimma JacopoV ray2301 stelcodes eengert alKODIque Tee77 Ch3dd4rGoblin silentscreamiong Jshn Ian JP RZ daviddia5 Jathlon77 SteveF George sito1961 devolute[CR][CR]If I've forgotten anyone please let me know!</label>
                                 <visible>Container(3).HasFocus(8)</visible>
                                 <left>grid_x04</left>
                                 <right>grid_x04</right>

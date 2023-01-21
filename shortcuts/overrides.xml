@@ -16,7 +16,15 @@
         <action>Reboot()</action>
     </override>
 
+    <!-- Custom Hub Action -->
+    <override action="ActivateWindow(1132)">
+        <action>SetProperty(CustomHubHeader,$INFO[Container(300).ListItem.Label],Home)</action>
+        <action>SetProperty(submenuVisibility,$INFO[Container(300).ListItem.Property(submenuVisibility)],Home)</action>
+        <action>ActivateWindow(1132)</action>
+    </override>
+
     <!-- Additional Common Shortcuts -->
+    <shortcut label="$LOCALIZE[31367]" type="571" grouping="common" thumbnail="special://skin/extras/icons/gem.png" icon="special://skin/extras/icons/gem.png">ActivateWindow(1132)</shortcut>
     <shortcut label="$LOCALIZE[31314]" type="571" grouping="common" thumbnail="special://skin/extras/icons/film.png" icon="special://skin/extras/icons/film.png">ActivateWindow(1120)</shortcut>
     <shortcut label="$LOCALIZE[31315]" type="571" grouping="common" thumbnail="special://skin/extras/icons/tv.png" icon="special://skin/extras/icons/tv.png">ActivateWindow(1121)</shortcut>
     <shortcut label="$LOCALIZE[31328]" type="571" grouping="common" thumbnail="special://skin/extras/icons/film.png" icon="special://skin/extras/icons/film.png">ActivateWindow(1130)</shortcut>
@@ -102,6 +110,7 @@
     <property property="widgetEndRowAction">$LOCALIZE[31331]</property>
     <property property="widgetEndRowAction">$LOCALIZE[31328]</property>
     <property property="widgetEndRowAction">$LOCALIZE[31329]</property>
+    <property property="widgetEndRowAction">$LOCALIZE[31367]</property>
     <propertySettings property="widgetEndRowAction" buttonID="9915" title="$LOCALIZE[31330]" />
 
     <!-- Widget Sort -->
@@ -161,6 +170,9 @@
     <onback to="9312">9918</onback>
     <onback to="9916">9906</onback>
     <onback to="9916">9961</onback>
+    <onback to="9920">9922</onback>
+    <onback to="9920">9921</onback>
+    <onback to="9920">407</onback>
 
     <!-- Icon Overrides -->
     <icon image="DefaultShortcut.png">special://skin/extras/icons/shortcut.png</icon>
@@ -329,6 +341,48 @@
     </widget-groupings>
 
 
+    <!-- Widget Grouping -->
+    <widgethub-groupings>
+        <shortcut widget="CustomNode1" label="Custom Node 1">CustomNode1</shortcut>
+        <shortcut widget="CustomNode2" label="Custom Node 2">CustomNode2</shortcut>
+        <shortcut widget="CustomNode3" label="Custom Node 3">CustomNode3</shortcut>
+        <node label="$LOCALIZE[24001]">
+            <node label="$LOCALIZE[1037]">
+                <content>addon-video</content>
+            </node>
+            <node label="$LOCALIZE[1038]">
+                <content>addon-audio</content>
+            </node>
+            <node label="$LOCALIZE[1039]">
+                <content>addon-image</content>
+            </node>
+        </node>
+        <node label="$LOCALIZE[3]">
+            <content>video</content>
+            <node label="$LOCALIZE[1037]">
+                <content>addon-video</content>
+            </node>
+            <node label="$LOCALIZE[31099]">
+                <content>videosources</content>
+            </node>
+        </node>
+        <node label="$LOCALIZE[2]">
+            <content>music</content>
+            <node label="$LOCALIZE[1038]">
+                <content>addon-audio</content>
+            </node>
+            <node label="$LOCALIZE[31100]">
+                <content>musicsources</content>
+            </node>
+        </node>
+        <node label="$LOCALIZE[31101]">
+            <content>picturesources</content>
+        </node>
+        <node label="$LOCALIZE[1036]">
+            <content>favourite</content>
+        </node>
+    </widgethub-groupings>
+
     <!-- customsearch Grouping -->
     <customsearch-groupings>
         <node label="32010">
@@ -362,6 +416,8 @@
         <shortcut label="Music Video Artists" type="571" icon="special://skin/extras/icons/musicvideo.png">DefaultSearch-MusicVideoArtists</shortcut>
         <shortcut label="Youtube" type="571" icon="special://skin/extras/icons/youtube.png">DefaultSearch-Youtube</shortcut>
         <shortcut label="Netflix" type="571" icon="special://skin/extras/icons/netflix.png">DefaultSearch-Netflix</shortcut>
+        <shortcut label="Hulu" type="571" icon="special://skin/extras/icons/hulu.png">DefaultSearch-Hulu</shortcut>
+        <shortcut label="Disney+" type="571" icon="special://skin/extras/icons/disneyplus.png">DefaultSearch-DisneyPlus</shortcut>
         <shortcut label="Spotify Artists" type="571" icon="special://skin/extras/icons/spotify.png">DefaultSearch-SpotifyArtists</shortcut>
         <shortcut label="Spotify Albums" type="571" icon="special://skin/extras/icons/spotify.png">DefaultSearch-SpotifyAlbums</shortcut>
         <shortcut label="Spotify Songs" type="571" icon="special://skin/extras/icons/spotify.png">DefaultSearch-SpotifySongs</shortcut>

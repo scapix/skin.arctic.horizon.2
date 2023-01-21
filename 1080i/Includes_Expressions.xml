@@ -13,6 +13,8 @@
 
     <expression name="Exp_ShowBigPosterInfo">[Control.HasFocus(58) + System.IdleTime(3) + !Skin.HasSetting(Views.DisableBigPosterRowAutoInfo)]</expression>
 
+    <expression name="Exp_OSD_PVRChannelSwitch">[[VideoPlayer.Content(livetv) + !Window.Isvisible(videoosd)] + [!String.IsEmpty(PVR.ChannelNumberInput) | Player.ShowInfo]]</expression>
+
     <expression name="Exp_HomeBarVisible">[Control.HasFocus(300) | Control.HasFocus(399) | ControlGroup(303).HasFocus() | Control.HasFocus(302) | ControlGroup(9000).HasFocus() | [Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + [String.IsEqual(Container(300).ListItem.Property(widgetStyle),Fullscreen) | String.IsEmpty(Container(300).ListItem.Property(widgetStyle))]]]</expression>
 
     <expression name="Exp_HasTempoShift">[!String.IsEmpty(Player.PlaySpeed) + !String.IsEqual(Player.PlaySpeed,1.00) + !String.IsEqual(Player.PlaySpeed,0.00)]</expression>
@@ -99,11 +101,11 @@
 
     <expression name="Exp_CombinedViews">[Control.IsVisible(502) | Control.IsVisible(512) | Control.IsVisible(522) | Control.IsVisible(572)]</expression>
 
-    <expression name="Exp_WallViews">[Control.IsVisible(500) | Control.IsVisible(510) | Control.IsVisible(520) | Control.IsVisible(540) | Control.IsVisible(570) | Control.IsVisible(580) | Control.IsVisible(550) | Control.IsVisible(560)]</expression>
+    <expression name="Exp_WallViews">[Control.IsVisible(500) | Control.IsVisible(510) | Control.IsVisible(520) | Control.IsVisible(540) | Control.IsVisible(570) | Control.IsVisible(580) | Control.IsVisible(550) | Control.IsVisible(560) | Control.IsVisible(54)]</expression>
 
-    <expression name="Exp_ListViews">[Control.IsVisible(501) | Control.IsVisible(511) | Control.IsVisible(521) | Control.IsVisible(507) | Control.IsVisible(517) | Control.IsVisible(527)]</expression>
+    <expression name="Exp_ListViews">[Control.IsVisible(501) | Control.IsVisible(511) | Control.IsVisible(521) | Control.IsVisible(507) | Control.IsVisible(517) | Control.IsVisible(527) | Control.IsVisible(551)]</expression>
 
-    <expression name="Exp_BigListViews">[Control.IsVisible(508) | Control.IsVisible(558) | Control.IsVisible(581)]</expression>
+    <expression name="Exp_BigListViews">[Control.IsVisible(508) | Control.IsVisible(557) | Control.IsVisible(558) | Control.IsVisible(581)]</expression>
 
     <!-- <expression name="Exp_View_Special">[True]</expression> -->
     <expression name="Exp_View_Special">!String.IsEqual(Container.Property(param.info),user_discover)</expression>

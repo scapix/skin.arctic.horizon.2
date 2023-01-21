@@ -134,6 +134,7 @@
     <variable name="Label_Setting_RowScrollBar">
         <value condition="Skin.String(Rows.OnDown,Wall)">$LOCALIZE[31184]</value>
         <value condition="Skin.String(Rows.OnDown,Plot)">$LOCALIZE[207]</value>
+        <value condition="Skin.String(Rows.OnDown,Trailer)">$LOCALIZE[20410]</value>
         <value>$LOCALIZE[31018]</value>
     </variable>
 
@@ -338,6 +339,7 @@
         <value condition="Window.IsVisible(script-tmdbhelper-recommendations.xml)">$INFO[Window.Property(Title)]</value>
         <value condition="$EXP[Exp_InfoDialogs]">$VAR[Label_Title]</value>
         <value condition="Window.IsVisible(Home) + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + !$EXP[Exp_InfoDialogs]">$VAR[Label_Title_C301]</value>
+        <value condition="[Window.IsVisible(1120) | Window.IsVisible(1121) | Window.IsVisible(1130) | Window.IsVisible(1131) | Window.IsVisible(1132)] + !$EXP[Exp_InfoDialogs]">$VAR[Label_Title_C301]</value>
         <value>$VAR[Label_Title_Parent]</value>
     </variable>
 
