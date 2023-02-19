@@ -2138,14 +2138,25 @@
                         <texture colordiffuse="$VAR[ColorMainItem]" diffuse="$PARAM[diffuse]">common/white.png</texture>
                         <visible>!$EXP[Exp_HasLandscapeFormatArt]</visible>
                     </include>
+                    <!-- scape PVR poster on right -->
                     <control type="image">
                         <texture background="true" diffuse="$PARAM[diffuse]">$PARAM[icon]</texture>
-                        <aspectratio scalediffuse="false">keep</aspectratio>
-                        <bordersize>40</bordersize>
+                        <aspectratio scalediffuse="false" align="right" aligny="top">keep</aspectratio>
+                        <!-- <bordersize>40</bordersize> -->
+                        <height>230</height>
                         <top>0</top>
                         <include content="Object_Bottom" condition="!Skin.HasSetting(Widgets.OpaqueFocus)">
                             <param name="bottom">-40</param>
                         </include>
+                        <visible>!$EXP[Exp_HasLandscapeFormatArt]</visible>
+                    </control>
+                    <!-- scape PVR channel icon on left -->
+                    <control type="image">
+                        <texture background="true" diffuse="$PARAM[diffuse]">$INFO[listitem.icon]</texture>
+                        <aspectratio scalediffuse="true" align="left">keep</aspectratio>
+                        <bordersize>20</bordersize>
+                        <top>0</top>
+                        <left>10</left>
                         <visible>!$EXP[Exp_HasLandscapeFormatArt]</visible>
                     </control>
                     <include content="Object_Indicator">
