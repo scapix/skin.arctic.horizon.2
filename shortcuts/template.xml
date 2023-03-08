@@ -172,9 +172,9 @@
         <property name="mainmenuLabel" tag="label" />
         <property name="mainmenuPath" tag="onclick" />
 
-        <property name="widgetEndRowAction" tag="property" attribute="name|widgetEndRowAction" />
-        <property name="isWidgetEndRowAction" tag="property" attribute="name|widgetEndRowAction">True</property>
-        <property name="isWidgetEndRowAction">False</property>
+        <property name="widgetOnDownAction" tag="property" attribute="name|widgetOnDownAction" />
+        <property name="iswidgetOnDownAction" tag="property" attribute="name|widgetOnDownAction">True</property>
+        <property name="iswidgetOnDownAction">False</property>
 
         <property name="includeCondition" tag="visible" />
         <property name="includeCondition">True</property>
@@ -189,7 +189,7 @@
                     </include>
                     <visible>String.IsEqual(Container(300).ListItem.Property(submenuVisibility),$SKINSHORTCUTS[submenuVisibility]) | !String.IsEmpty(Window(Home).Property(WidgetWait))</visible>
                     <control type="grouplist" id="$PYTHON[int(mainmenuid) * 1000 + 400]">
-                        <animation effect="slide" end="0,120" condition="Integer.IsEqual(Container($PYTHON[int(mainmenuid) * 1000 + 400]).NumItems,1) + $SKINSHORTCUTS[isFullscreenWidget]">Conditional</animation>
+                        <animation effect="slide" end="0,120" condition="Integer.IsEqual(Container($PYTHON[int(mainmenuid) * 1000 + 400]).NumItems,1) + $SKINSHORTCUTS[isFullscreenWidget] + $SKINSHORTCUTS[isFullscreenStandard]">Conditional</animation>
                         <visible>!$EXP[Exp_InfoDialogs]</visible>
                         <visible>!$EXP[Exp_RecommendationDialogs]</visible>
                         <include>Animation_Common</include>
@@ -201,19 +201,19 @@
                         <onup>SetFocus(300)</onup>
                         <ondown condition="Skin.HasSetting(Home.VerticalMenu)">SetFocus(300)</ondown>
 
-                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + $SKINSHORTCUTS[isWidgetEndRowAction]">SetProperty(CustomHubHeader,$INFO[Container(300).ListItem.Label],Home)</ondown>
-                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + $SKINSHORTCUTS[isWidgetEndRowAction]">SetProperty(submenuVisibility,$INFO[Container(300).ListItem.Property(submenuVisibility)],Home)</ondown>
-                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + $SKINSHORTCUTS[isWidgetEndRowAction]">$SKINSHORTCUTS[widgetEndRowAction]</ondown>
-                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![$SKINSHORTCUTS[isWidgetEndRowAction]]">ClearProperty(330_FocusBounce,Home)</ondown>
-                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![$SKINSHORTCUTS[isWidgetEndRowAction]] + !String.IsEqual(Window.Property(Slide.WidgetInfoStyle),Full)">SetFocus(330)</ondown>
-                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![$SKINSHORTCUTS[isWidgetEndRowAction]] + String.IsEqual(Window.Property(Slide.WidgetInfoStyle),Full)">AlarmClock(330_FocusBounce_Reset,SetProperty(330_FocusBounce,1,Home),00:00,silent)</ondown>
+                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + $SKINSHORTCUTS[iswidgetOnDownAction]">SetProperty(CustomHubHeader,$INFO[Container(300).ListItem.Label],Home)</ondown>
+                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + $SKINSHORTCUTS[iswidgetOnDownAction]">SetProperty(submenuVisibility,$INFO[Container(300).ListItem.Property(submenuVisibility)],Home)</ondown>
+                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + $SKINSHORTCUTS[iswidgetOnDownAction]">$SKINSHORTCUTS[widgetOnDownAction]</ondown>
+                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![$SKINSHORTCUTS[iswidgetOnDownAction]]">ClearProperty(330_FocusBounce,Home)</ondown>
+                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![$SKINSHORTCUTS[iswidgetOnDownAction]] + !String.IsEqual(Window.Property(Slide.WidgetInfoStyle),Full)">SetFocus(330)</ondown>
+                        <ondown condition="!Skin.HasSetting(Home.VerticalMenu) + ![$SKINSHORTCUTS[iswidgetOnDownAction]] + String.IsEqual(Window.Property(Slide.WidgetInfoStyle),Full)">AlarmClock(330_FocusBounce_Reset,SetProperty(330_FocusBounce,1,Home),00:00,silent)</ondown>
 
                         <include content="Object_Control" condition="$SKINSHORTCUTS[isFullscreenWidget] + $SKINSHORTCUTS[isFullscreenStandard]">
                             <param name="control">group</param>
                             <param name="id">$PYTHON[int(mainmenuid) * 1000 + 500]</param>
                             <top>fullscreenwidget_buttongroup_t</top>
                             <height>fullscreenwidget_buttongroup_h</height>
-                            <visible>!Integer.IsEqual(Container(301).NumItems,0)</visible>
+                            <visible>!Integer.IsEqual(Container(301).NumItems,0) | Container(301).IsUpdating</visible>
                             <animation effect="fade" start="0" end="100" time="400" delay="400" reversible="false" condition="Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)">Conditional</animation>
                             <animation effect="fade" start="100" end="0" time="0" reversible="false" condition="!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)">Conditional</animation>
                             <include content="Info_Panel">
@@ -225,6 +225,7 @@
                                 <width>info_panel_w</width>
                                 <top>fullscreenwidget_infopanel_t</top>
                                 <left>view_pad</left>
+                                <visible>!Integer.IsEqual(Container(301).NumItems,0)</visible>
                             </include>
                             <control type="grouplist" id="$PYTHON[int(mainmenuid) * 1000 + 599]">
                                 <left>40</left>
@@ -237,12 +238,27 @@
                                 <ondown>$PYTHON[int(mainmenuid) * 1000 + 601]</ondown>
                                 <onleft>Control.Move(301,-1)</onleft>
                                 <onright>Control.Move(301,1)</onright>
+
+                                <control type="group" id="$PYTHON[int(mainmenuid) * 1000 + 502]">
+                                    <height>120</height>
+                                    <width>1840</width>
+                                    <animation type="Visible" reversible="false">
+                                        <effect type="fade" start="0" end="100" time="400" delay="600"/>
+                                    </animation>
+                                    <include content="Object_BusySpinner">
+                                        <param name="colordiffuse">main_fg</param>
+                                        <param name="label">$LOCALIZE[31023]</param>
+                                    </include>
+                                    <visible>Integer.IsEqual(Container(301).NumItems,0)</visible>
+                                </control>
+
                                 <include content="Object_Info_Button">
                                     <param name="id" value="$PYTHON[int(mainmenuid) * 1000 + 501]" />
                                     <param name="groupid" value="$PYTHON[int(mainmenuid) * 1000 + 511]" />
                                     <param name="sliceid" value="$PYTHON[int(mainmenuid) * 1000 + 521]" />
                                     <param name="label" value="$VAR[Label_FullscreenWidget_PlayButton]" />
                                     <param name="icon" value="$VAR[Image_FullscreenWidget_PlayButton]" />
+                                    <param name="visible">!Integer.IsEqual(Container(301).NumItems,0)</param>
                                     <onup>SetFocus(300)</onup>
                                     <onback>SetFocus(300)</onback>
                                     <ondown>$PYTHON[int(mainmenuid) * 1000 + 601]</ondown>
@@ -264,6 +280,7 @@
                                     <param name="sliceid" value="$PYTHON[int(mainmenuid) * 1000 + 523]" />
                                     <param name="label" value="$VAR[Label_FullscreenWidget_InfoButton]" />
                                     <param name="icon" value="$VAR[Image_FullscreenWidget_InfoButton]" />
+                                    <param name="visible">!Integer.IsEqual(Container(301).NumItems,0)</param>
                                     <onup>SetFocus(300)</onup>
                                     <onback>SetFocus(300)</onback>
                                     <ondown>$PYTHON[int(mainmenuid) * 1000 + 601]</ondown>
@@ -320,7 +337,7 @@
                             <param name="include" value="$SKINSHORTCUTS[FullscreenWidgetStyle]" />
                             <param name="labelvisible">!Skin.HasSetting(Widgets.ExpandedHeader)</param>
                             <param name="visible" value="String.IsEqual(Container(300).ListItem.Property(submenuVisibility),$SKINSHORTCUTS[submenuVisibility])" />
-                            <param name="busy_visible" value="Integer.IsEqual(Container(301).NumItems,0)" />
+                            <param name="busy_visible" value="[Integer.IsEqual(Container(301).NumItems,0) | [Integer.IsEqual(Container(301).NumItems,1) + !String.IsEmpty(Container(301).ListItemAbsolute(0).Property(blankitem))]]" />
                             <content>
                                 <item>
                                     <property name="blankitem">true</property>
@@ -1149,7 +1166,7 @@
         <controls>
             <item>
                 <visible>String.IsEqual(Container(211).ListItem.Property(labelID),$SKINSHORTCUTS[labelID])</visible>
-                <property name="widgetEndRowAction">$INFO[Skin.String(widgetEndRowAction-$SKINSHORTCUTS[labelID])]</property>
+                <property name="widgetOnDownAction">$INFO[Skin.String(widgetEndRowAction-$SKINSHORTCUTS[labelID])]</property>
                 <property name="menuOnUpAction">$INFO[Skin.String(menuOnUpAction-$SKINSHORTCUTS[labelID])]</property>
             </item>
         </controls>
@@ -1313,7 +1330,7 @@
                 <scrolltime tween="quadratic">400</scrolltime>
                 <hitrect x="0" y="0" w="0" h="0" />
                 <include content="Defs_AutoScroll">
-                    <param name="condition" value="[Control.HasFocus(300) | Control.HasFocus(399)] +  + !System.ScreenSaverActive" />
+                    <param name="condition" value="[Control.HasFocus(300) | Control.HasFocus(399)] + !System.ScreenSaverActive" />
                 </include>
                 <itemlayout width="1920" height="1080" />
                 <focusedlayout width="1920" height="1080" />
