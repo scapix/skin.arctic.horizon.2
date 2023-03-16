@@ -51,9 +51,9 @@
         <param name="epg_top" default="0" />
         <param name="bottomline_left" default="0" />
         <definition>
-            <include content="Object_GlassPanel">
+            <!-- <include content="Object_GlassPanel">
                 <param name="shadow">false</param>
-            </include>
+            </include> -->
             <control type="group">
                 <top>$PARAM[epg_top]</top>
                 <bottom>$PARAM[epg_bottom]</bottom>
@@ -219,6 +219,9 @@
                 <param name="id" value="50" />
                 <param name="progresstexture" value="pvr/progressline-full.png" />
                 <param name="viewtype_label" value="$LOCALIZE[35232]" />
+                <!-- scape -->
+                <param name="channelwidth" value="300" />
+                <param name="channelheight" value="60" />
                 <top>40</top>
             </include>
         </control>

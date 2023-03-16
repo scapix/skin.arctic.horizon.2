@@ -59,23 +59,26 @@
         <definition>
             <control type="group">
                 <nested />
-                <include content="Object_Control" condition="$PARAM[selected]">
+                <!-- <include content="Object_Control" condition="$PARAM[selected]">
                     <param name="control">image</param>
                     <include>Texture_Highlight</include>
-                </include>
+                </include> -->
                 <include content="Object_Control" condition="!$PARAM[selected]">
                     <param name="control">image</param>
                     <texture colordiffuse="main_fg_12">common/white.png</texture>
                     <height>1</height>
                 </include>
-                <include content="Object_Control" condition="$PARAM[detailed]">
+                <!-- scape -->
+                <!-- <include content="Object_Control" condition="$PARAM[detailed]"> -->
+                <include content="Object_Control">
                     <param name="control">image</param>
                     <texture>$INFO[ListItem.Icon]</texture>
-                    <aspectratio align="right">keep</aspectratio>
+                    <aspectratio align="left">keep</aspectratio>
                     <right>0</right>
-                    <bordersize>10</bordersize>
+                    <!-- <bordersize>10</bordersize> -->
+                    <bordersize>0</bordersize>
                 </include>
-                <include content="Object_Control" condition="!$PARAM[detailed]">
+                <!-- <include content="Object_Control" condition="!$PARAM[detailed]">
                     <param name="control">label</param>
                     <include condition="$PARAM[selected]">Color_SelectedText</include>
                     <right>grid_x04</right>
@@ -85,12 +88,14 @@
                     <font>font_main</font>
                     <align>right</align>
                     <label>$INFO[ListItem.ChannelNumberLabel]</label>
-                </include>
+                </include> -->
                 <include content="Object_Control" condition="!$PARAM[detailed]">
                     <param name="control">label</param>
                     <include condition="$PARAM[selected]">Color_SelectedText</include>
-                    <right>grid_x04</right>
-                    <left>grid_x04</left>
+                    <!-- <right>grid_x12</right> -->
+                    <!-- <leftt>grid_x04</left> -->
+                    <right>20</right>
+                    <left>90</left>
                     <textcolor>main_fg_70</textcolor>
                     <selectedcolor>main_fg_70</selectedcolor>
                     <font>font_main_bold</font>
