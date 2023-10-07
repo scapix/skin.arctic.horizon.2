@@ -59,10 +59,10 @@
         <definition>
             <control type="group">
                 <nested />
-                <!-- <include content="Object_Control" condition="$PARAM[selected]">
+                <include content="Object_Control" condition="$PARAM[selected]">
                     <param name="control">image</param>
                     <include>Texture_Highlight</include>
-                </include> -->
+                </include>
                 <include content="Object_Control" condition="!$PARAM[selected]">
                     <param name="control">image</param>
                     <texture colordiffuse="main_fg_12">common/white.png</texture>
