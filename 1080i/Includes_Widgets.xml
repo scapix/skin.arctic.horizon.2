@@ -35,8 +35,8 @@
                 <left>80</left>
                 <right>80</right>
                 <visible>$PARAM[visible]</visible>
-
                 <control type="label">
+                    <animation effect="slide" end="80,0" time="200" condition="$PARAM[busy_visible]">Conditional</animation>
                     <top>30</top>
                     <height>30</height>
                     <aligny>center</aligny>
@@ -50,6 +50,7 @@
                     <visible>$PARAM[labelvisible]</visible>
                 </control>
                 <control type="label">
+                    <animation effect="slide" end="80,0" time="200" condition="$PARAM[busy_visible]">Conditional</animation>
                     <top>30</top>
                     <height>30</height>
                     <aligny>center</aligny>
@@ -66,8 +67,6 @@
                     <visible>$PARAM[labelvisible]</visible>
                     <visible>![$PARAM[infowidget_full]] | !Skin.HasSetting(Widgets.ExpandedHeader)</visible>
                 </control>
-
-
 
                 <include content="Object_Control" condition="$PARAM[infowidget]">
                     <param name="control">group</param>
@@ -117,8 +116,9 @@
                     </include>
                 </include>
                 <control type="group">
-                    <top>80</top>
-                    <height>280</height>
+                    <top>47</top>
+                    <left>-1700</left>
+                    <!-- <height>280</height> -->
                     <visible>$PARAM[busy_visible]</visible>
                     <animation type="Visible" reversible="false">
                         <effect type="fade" start="0" end="100" time="400" delay="600"/>
@@ -127,11 +127,13 @@
                         <param name="colordiffuse">main_fg</param>
                         <param name="label">$LOCALIZE[31023] $PARAM[label]</param>
                         <param name="spinspinner">$PARAM[busy_visible]</param>
+                        <param name="haslabel">false</param>
                     </include>
                     <include content="Object_BusySpinner" condition="[$PARAM[usealtlabel]]">
                         <param name="colordiffuse">main_fg</param>
                         <param name="label">$LOCALIZE[31023] $PARAM[altlabel]</param>
                         <param name="spinspinner">$PARAM[busy_visible]</param>
+                        <param name="haslabel">false</param>
                     </include>
                 </control>
             </control>
