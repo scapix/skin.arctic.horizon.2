@@ -633,7 +633,7 @@
                     <top>grid_x14</top>
                     <align>left</align>
                     <textcolor>main_fg_70</textcolor>
-                    <font>font_huge_plot</font>
+                    <font>font_main_plot</font>
                     <label fallback="19055">$PARAM[label]$INFO[Window(Home).Property(ResetScroll)]</label>
                     <pagecontrol>61</pagecontrol>
                     <autoscroll>false</autoscroll>
